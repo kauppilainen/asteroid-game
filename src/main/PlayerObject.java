@@ -6,7 +6,14 @@ public class PlayerObject {
     private int yPos;
     private double xSpeed;
     private double ySpeed;
-    private char symbol = '<';
+    private char symbol = '\u25B2';
+
+
+    //Upp: '\u25B2'
+    //Ner: '\u25BC'
+    //Vänster: '\u25C0'
+    //Höger: '\u25B6'
+
 
     public PlayerObject(int xPos, int yPos){
         this.xPos = xPos;

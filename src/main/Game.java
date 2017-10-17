@@ -50,14 +50,19 @@ public class Game {
         switch (key.getKind()){
             case ArrowUp:
                 System.out.println("upp");
+
+
                 break;
             case ArrowDown:
+                System.out.println("ner");
 
                 break;
             case ArrowLeft:
+                System.out.println("vänster");
 
                 break;
             case ArrowRight:
+                System.out.println("höger");
 
                 break;
         }
