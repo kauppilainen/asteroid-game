@@ -28,10 +28,6 @@ public class Game {
         terminal.enterPrivateMode();
         terminal.setCursorVisible(false);
 
-
-
-
-
         while (true){
 
             key = terminal.readInput();
