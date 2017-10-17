@@ -3,7 +3,9 @@ package main;
 import com.googlecode.lanterna.TerminalFacade;
 import com.googlecode.lanterna.terminal.Terminal;
 import com.googlecode.lanterna.input.Key;
-
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +28,9 @@ public class Game {
                 System.out,
                 Charset.forName("UTF8"));
         render = new Render(terminal); // Create new Render object with terminal as parameter
+
         projectiles = new ArrayList<>();
+
 
     }
 
@@ -34,6 +38,7 @@ public class Game {
         this.player = new PlayerObject(50, 15); // Create new player object
         terminal.enterPrivateMode();        // Method to create window
         terminal.setCursorVisible(false);   // Makes cursor invisible
+        Asteroid asteroid = new Asteroid(10,1,0.05,0.1);
 
         while (true) {
 
@@ -43,8 +48,9 @@ public class Game {
             }
 
             player.update();
+            asteroid.update();
 
-
+            render.drawAsteroid(asteroid);
             render.drawPlayer(player); // Send player info to the render method drawPlayer to be drawn
             int projectileSize = projectiles.size();
             for(int i = projectileSize - 1; i >= 0; i--) {
@@ -62,7 +68,7 @@ public class Game {
             }
 
 
-            Thread.sleep(20); // Pause program for 200ms
+            Thread.sleep(20); // Pause program for 20ms
             terminal.clearScreen();
         }
     }
@@ -87,6 +93,5 @@ public class Game {
             break;
         }
     }
-
 
 }
