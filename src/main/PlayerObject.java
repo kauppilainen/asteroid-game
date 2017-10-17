@@ -23,6 +23,21 @@ public class PlayerObject {
         this.yPos = yPos; // Set instance variable yPos to yPos from in parameter
     }
 
+    public void moveForward(){
+
+        if (direction == 0){
+            yPos--;
+        }
+        else if (direction == 1){
+            xPos +=2;
+        }
+        else if (direction == 2){
+            yPos++;
+        }
+        else if (direction == 3){
+            xPos -=2;
+        }
+    }
 
     //region getters & setters
 

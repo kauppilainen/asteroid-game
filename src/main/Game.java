@@ -30,7 +30,7 @@ public class Game {
     public void run() throws InterruptedException{  // Method to run your game
         this.player = new PlayerObject(50,15); // Create new player object
         terminal.enterPrivateMode();        // Method to create window
-        terminal.setCursorVisible(false);   // Makes cursor
+        terminal.setCursorVisible(false);   // Makes cursor invisible
 
         while (true){
 
@@ -41,8 +41,8 @@ public class Game {
 
             render.drawPlayer(player); // Send player info to the render method drawPlayer to be drawn
 
-            Thread.sleep(200); // Pause program for 200ms
-
+            Thread.sleep(20); // Pause program for 200ms
+            terminal.clearScreen();
         }
     }
 
@@ -50,6 +50,7 @@ public class Game {
         switch (key.getKind()){ // If key input was one of our expected cases, do the case instruction
             case ArrowUp:
                 System.out.println("upp");
+                player.moveForward();
                 break;
             case ArrowDown:
                 System.out.println("ner");
