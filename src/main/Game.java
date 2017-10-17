@@ -47,14 +47,19 @@ public class Game {
         switch (key.getKind()){ // If key input was one of our expected cases, do the case instruction
             case ArrowUp:
                 System.out.println("upp");
+
+
                 break;
             case ArrowDown:
+                System.out.println("ner");
 
                 break;
             case ArrowLeft:
+                System.out.println("vänster");
 
                 break;
             case ArrowRight:
+                System.out.println("höger");
 
                 break;
         }
