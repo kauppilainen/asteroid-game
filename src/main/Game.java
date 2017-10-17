@@ -9,10 +9,10 @@ import java.nio.charset.Charset;
 
 public class Game {
 
-    Terminal terminal;
-    PlayerObject player;
-    Key key;
-    Render render;
+    private Terminal terminal;
+    private PlayerObject player;
+    private Key key;
+    private Render render;
 
     public Game(){
         this.terminal = TerminalFacade.createTerminal(System.in,System.out, Charset.forName("UTF8"));
