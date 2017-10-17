@@ -20,25 +20,25 @@ public class Game {
     private Render render;
 
 
-    public Game(){ // Constructor
+    public Game() { // Constructor
         // Initialize our variables
         this.terminal = TerminalFacade.createTerminal(System.in,
-                                                      System.out,
-                                                      Charset.forName("UTF8"));
+                System.out,
+                Charset.forName("UTF8"));
         render = new Render(terminal); // Create new Render object with terminal as parameter
         projectiles = new ArrayList<>();
 
     }
 
-    public void run() throws InterruptedException{  // Method to run your game
-        this.player = new PlayerObject(50,15); // Create new player object
+    public void run() throws InterruptedException {  // Method to run your game
+        this.player = new PlayerObject(50, 15); // Create new player object
         terminal.enterPrivateMode();        // Method to create window
         terminal.setCursorVisible(false);   // Makes cursor invisible
 
-        while (true){
+        while (true) {
 
             key = terminal.readInput();     // Get key input from terminal
-            if(key != null){                // If a key press has happened
+            if(key != null) {                // If a key press has happened
                 input(key);                 // Send key to input where the input is dealt with
             }
 
@@ -47,13 +47,13 @@ public class Game {
 
             render.drawPlayer(player); // Send player info to the render method drawPlayer to be drawn
             int projectileSize = projectiles.size();
-            for(int i = projectileSize-1; i >= 0; i--) {
+            for(int i = projectileSize - 1; i >= 0; i--) {
                 int x = projectiles.get(i).getxPos();
                 int y = projectiles.get(i).getyPos();
                 projectiles.get(i).setPosition(x, y);
 
                 // Remove projectile if hits edge of screen
-                if(x < 0 || x > 100 || y < 0 || y > 30){
+                if(x < 0 || x > 100 || y < 0 || y > 30) {
                     projectiles.remove(i);
                     break;
                 }
@@ -67,8 +67,8 @@ public class Game {
         }
     }
 
-    public void input(Key key){
-        switch (key.getKind()){ // If key input was one of our expected cases, do the case instruction
+    public void input(Key key) {
+        switch (key.getKind()) { // If key input was one of our expected cases, do the case instruction
             case ArrowUp:
                 player.moveForward();
                 break;
@@ -82,9 +82,9 @@ public class Game {
                 player.setDirection(1);//turn right
                 break;
             case Tab:
-                System.out.println("Tab");
-                projectiles.add(new Projectile(player)); // Create and add projectile to projectile list
-                break;
+            System.out.println("Tab");
+            projectiles.add(new Projectile(player)); // Create and add projectile to projectile list
+            break;
         }
     }
 

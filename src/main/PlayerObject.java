@@ -79,7 +79,7 @@ public class PlayerObject {
     public int getxPos() {
         return xPos;
     }
-    
+
 
     public void setxPos(int newXPos) {
         this.xPos = newXPos;
