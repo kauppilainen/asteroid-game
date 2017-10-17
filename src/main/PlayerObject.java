@@ -33,32 +33,32 @@ public class PlayerObject {
     public void moveForward(){
 
         if (direction == 0){
-            setySpeed(-0.05);
+            setySpeed(-0.01);
         }
         else if (direction == 1){
-            setxSpeed(0.05);
+            setxSpeed(0.01);
         }
         else if (direction == 2){
-            setySpeed(0.05);
+            setySpeed(0.01);
         }
         else if (direction == 3){
-            setxSpeed(-0.05);
+            setxSpeed(-0.01);
         }
     }
 
     public void brake(){
 
         if (direction == 0){
-            setySpeed(0.03);
+            setySpeed(0.005);
         }
         else if (direction == 1){
-            setxSpeed(-0.03);
+            setxSpeed(-0.005);
         }
         else if (direction == 2){
-            setySpeed(-0.03);
+            setySpeed(-0.005);
         }
         else if (direction == 3){
-            setxSpeed(0.03);
+            setxSpeed(0.005);
         }
 
     }
@@ -114,11 +114,11 @@ public class PlayerObject {
 
     public void setxSpeed(double xSpeedChange) {
         this.xSpeed += xSpeedChange;
-        if(this.xSpeed > 0.5){
-            this.xSpeed = 0.5;
+        if(this.xSpeed > 0.3){
+            this.xSpeed = 0.3;
         }
-        else if(this.xSpeed < -0.5){
-            this.xSpeed = -0.5;
+        else if(this.xSpeed < -0.3){
+            this.xSpeed = -0.3;
         }
     }
 
@@ -128,11 +128,11 @@ public class PlayerObject {
 
     public void setySpeed(double ySpeedChange) {
         this.ySpeed += ySpeedChange;
-        if(this.ySpeed > 0.8){
-            this.ySpeed = 0.8;
+        if(this.ySpeed > 0.3){
+            this.ySpeed = 0.3;
         }
-        else if(this.ySpeed < -0.8){
-            this.ySpeed = -0.8;
+        else if(this.ySpeed < -0.3){
+            this.ySpeed = -0.3;
         }
     }
 
