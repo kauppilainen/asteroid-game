@@ -22,6 +22,9 @@ public class Render {
         terminal.moveCursor(player.getxPos(),player.getyPos()); // Move cursor to player position
         terminal.putCharacter(player.getSymbol()); // Puts character on screen
 
+
     }
+
+
 
 }//end of class

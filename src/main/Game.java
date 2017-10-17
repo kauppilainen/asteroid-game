@@ -3,7 +3,9 @@ package main;
 import com.googlecode.lanterna.TerminalFacade;
 import com.googlecode.lanterna.terminal.Terminal;
 import com.googlecode.lanterna.input.Key;
-
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import java.nio.charset.Charset;
 
 
@@ -24,7 +26,6 @@ public class Game {
                                                       Charset.forName("UTF8"));
         render = new Render(terminal); // Create new Render object with terminal as parameter
 
-
     }
 
     public void run() throws InterruptedException{  // Method to run your game
@@ -41,7 +42,7 @@ public class Game {
 
             render.drawPlayer(player); // Send player info to the render method drawPlayer to be drawn
 
-            Thread.sleep(20); // Pause program for 200ms
+            Thread.sleep(20); // Pause program for 20ms
             terminal.clearScreen();
         }
     }
@@ -67,6 +68,5 @@ public class Game {
         }
 
     }
-
 
 }
