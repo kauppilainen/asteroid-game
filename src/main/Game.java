@@ -34,6 +34,7 @@ public class Game {
         this.player = new PlayerObject(50,15); // Create new player object
         terminal.enterPrivateMode();        // Method to create window
         terminal.setCursorVisible(false);   // Makes cursor invisible
+        Asteroid asteroid = new Asteroid(10,1,0.05,0.1);
 
         while (true){
 
@@ -43,8 +44,9 @@ public class Game {
             }
 
             player.update();
+            asteroid.update();
 
-
+            render.drawAsteroid(asteroid);
             render.drawPlayer(player); // Send player info to the render method drawPlayer to be drawn
             int projectileSize = projectiles.size();
             for(int i = projectileSize-1; i >= 0; i--) {

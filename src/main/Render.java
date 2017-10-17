@@ -22,6 +22,16 @@ public class Render {
 
     }
 
+    public void drawAsteroid(Asteroid asteroid){ // Method to draw player position
+        terminal.applyBackgroundColor(150,150,150);
+        terminal.moveCursor(asteroid.getxPos(),asteroid.getyPos()); // Move cursor to player position
+        terminal.putCharacter(asteroid.getSymbol()); // Puts character on screen
+        terminal.moveCursor(asteroid.getxPos()+1,asteroid.getyPos());
+        terminal.putCharacter(asteroid.getSymbol());
+        terminal.applyBackgroundColor(Terminal.Color.DEFAULT);
+
+    }
+
     public void drawProjectile(Projectile proj){
         terminal.moveCursor(proj.getxPos(), proj.getyPos());
         terminal.putCharacter(proj.getSymbol());
