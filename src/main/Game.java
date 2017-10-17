@@ -9,41 +9,45 @@ import java.nio.charset.Charset;
 
 public class Game {
 
+
+    // Declare variables
     private Terminal terminal;
     private PlayerObject player;
     private Key key;
     private Render render;
 
-    public Game(){
-        this.terminal = TerminalFacade.createTerminal(System.in,System.out, Charset.forName("UTF8"));
-        render = new Render(terminal);
+
+    public Game(){ // Constructor
+        // Initialize our variables
+        this.terminal = TerminalFacade.createTerminal(System.in,
+                                                      System.out,
+                                                      Charset.forName("UTF8"));
+        render = new Render(terminal); // Create new Render object with terminal as parameter
 
 
     }
 
-
-
-    public void run() throws InterruptedException{
-        this.player = new PlayerObject(50,15);
-        terminal.enterPrivateMode();
-        terminal.setCursorVisible(false);
+    public void run() throws InterruptedException{  // Method to run your game
+        this.player = new PlayerObject(50,15); // Create new player object
+        terminal.enterPrivateMode();        // Method to create window
+        terminal.setCursorVisible(false);   // Makes cursor
 
         while (true){
 
-            key = terminal.readInput();
-            if(key != null){
-                input(key);
+            key = terminal.readInput();     // Get key input from terminal
+            if(key != null){                // If a key press has happened
+                input(key);                 // Send key to input where the input is dealt with
             }
 
-            render.drawPlayer(player);
+            render.drawPlayer(player); // Send player info to the render method drawPlayer to be drawn
 
-            Thread.sleep(200);
+            Thread.sleep(200); // Pause program for 200ms
 
         }
     }
 
     public void input(Key key){
-        switch (key.getKind()){
+        switch (key.getKind()){ // If key input was one of our expected cases, do the case instruction
             case ArrowUp:
                 System.out.println("upp");
                 break;

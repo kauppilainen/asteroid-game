@@ -1,7 +1,7 @@
 package main;
 
 public class PlayerObject {
-
+    // Declare variables
     private int xPos;
     private int yPos;
     private double xSpeed;
@@ -17,9 +17,10 @@ public class PlayerObject {
     //Höger: '\u25B6'
 
 
-    public PlayerObject(int xPos, int yPos){
-        this.xPos = xPos;
-        this.yPos = yPos;
+    public PlayerObject(int xPos, int yPos){ // Constructor
+        // Initialize our variables
+        this.xPos = xPos; // Set instance variable xPos to xPos from in parameter
+        this.yPos = yPos; // Set instance variable yPos to yPos from in parameter
     }
 
 
