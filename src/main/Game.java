@@ -5,6 +5,8 @@ import com.googlecode.lanterna.terminal.Terminal;
 import com.googlecode.lanterna.input.Key;
 
 import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Game {
@@ -13,6 +15,7 @@ public class Game {
     // Declare variables
     private Terminal terminal;
     private PlayerObject player;
+    private List<Projectile> projectiles;
     private Key key;
     private Render render;
 
@@ -23,7 +26,7 @@ public class Game {
                                                       System.out,
                                                       Charset.forName("UTF8"));
         render = new Render(terminal); // Create new Render object with terminal as parameter
-
+        projectiles = new ArrayList<>();
 
     }
 
@@ -40,6 +43,21 @@ public class Game {
             }
 
             render.drawPlayer(player); // Send player info to the render method drawPlayer to be drawn
+            int projectileSize = projectiles.size();
+            for(int i = projectileSize-1; i >= 0; i--) {
+                int x = projectiles.get(i).getxPos();
+                int y = projectiles.get(i).getyPos();
+                projectiles.get(i).setPosition(x, y);
+
+                // Remove projectile if hits edge of screen
+                if(x < 0 || x > 100 || y < 0 || y > 30){
+                    projectiles.remove(i);
+                    break;
+                }
+
+                render.drawProjectile(projectiles.get(i)); // Draw projectile
+            }
+
 
             Thread.sleep(20); // Pause program for 200ms
             terminal.clearScreen();
@@ -64,8 +82,11 @@ public class Game {
                 System.out.println("höger");
                 player.setDirection(1);//turn right
                 break;
+            case Tab:
+                System.out.println("Tab");
+                projectiles.add(new Projectile(player)); // Create and add projectile to projectile list
+                break;
         }
-
     }
 
 

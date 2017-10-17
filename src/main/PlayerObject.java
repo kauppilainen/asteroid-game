@@ -45,7 +45,6 @@ public class PlayerObject {
         return xPos;
     }
 
-
     public void setxPos(int xPos) {
         this.xPos = xPos;
     }
@@ -92,9 +91,6 @@ public class PlayerObject {
         else if(direction == 3){
             this.symbol = '\u25C0';
         }
-
-
-
     }
 
     public int getDirection() {

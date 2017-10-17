@@ -15,13 +15,16 @@ public class Render {
         this.terminal = terminal; // Set terminal variable to terminal from in parameter
     }
 
-
-
     public void drawPlayer(PlayerObject player){ // Method to draw player position
 
         terminal.moveCursor(player.getxPos(),player.getyPos()); // Move cursor to player position
         terminal.putCharacter(player.getSymbol()); // Puts character on screen
 
+    }
+
+    public void drawProjectile(Projectile proj){
+        terminal.moveCursor(proj.getxPos(), proj.getyPos());
+        terminal.putCharacter(proj.getSymbol());
     }
 
 }//end of class
