@@ -42,6 +42,9 @@ public class Game {
                 input(key);                 // Send key to input where the input is dealt with
             }
 
+            player.update();
+
+
             render.drawPlayer(player); // Send player info to the render method drawPlayer to be drawn
             int projectileSize = projectiles.size();
             for(int i = projectileSize-1; i >= 0; i--) {
@@ -67,19 +70,15 @@ public class Game {
     public void input(Key key){
         switch (key.getKind()){ // If key input was one of our expected cases, do the case instruction
             case ArrowUp:
-                System.out.println("upp");
                 player.moveForward();
                 break;
             case ArrowDown:
-                System.out.println("ner");
-
+                player.brake();
                 break;
             case ArrowLeft:
-                System.out.println("vänster");
                 player.setDirection(-1);//turn left
                 break;
             case ArrowRight:
-                System.out.println("höger");
                 player.setDirection(1);//turn right
                 break;
             case Tab:
