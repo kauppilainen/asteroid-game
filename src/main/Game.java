@@ -1,10 +1,67 @@
 package main;
 
+import com.googlecode.lanterna.TerminalFacade;
+import com.googlecode.lanterna.terminal.Terminal;
+import com.googlecode.lanterna.input.Key;
+
+import java.nio.charset.Charset;
+
+
 public class Game {
 
+    Terminal terminal;
+    PlayerObject player;
+    Key key;
+    Render render;
 
+    public Game(){
+        this.terminal = TerminalFacade.createTerminal(System.in,System.out, Charset.forName("UTF8"));
 
-    public void run(){
 
     }
+
+
+
+    public void run() throws InterruptedException{
+        this.player = new PlayerObject();
+        terminal.enterPrivateMode();
+        terminal.setCursorVisible(false);
+        render = new Render(terminal);
+
+
+
+
+        while (true){
+
+            key = terminal.readInput();
+            if(key != null){
+                input(key);
+            }
+
+            render.drawPlayer();
+
+            Thread.sleep(200);
+
+        }
+    }
+
+    public void input(Key key){
+        switch (key.getKind()){
+            case ArrowUp:
+                System.out.println("upp");
+                break;
+            case ArrowDown:
+
+                break;
+            case ArrowLeft:
+
+                break;
+            case ArrowRight:
+
+                break;
+        }
+
+    }
+
+
 }
