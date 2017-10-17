@@ -7,6 +7,8 @@ public class PlayerObject {
     private double xSpeed;
     private double ySpeed;
     private char symbol = '\u25B2';
+    //direction 0-3, 0 = upp
+    private int direction;
 
 
     //Upp: '\u25B2'
@@ -60,11 +62,45 @@ public class PlayerObject {
         return symbol;
     }
 
-    public void setSymbol(char symbol) {
-        this.symbol = symbol;
+    public void setSymbol(int direction) {
+
+        if(direction == 0){
+            this.symbol = '\u25B2';
+        }
+        else if(direction == 1){
+            this.symbol = '\u25B6';
+        }
+        else if(direction == 2){
+            this.symbol = '\u25BC';
+        }
+        else if(direction == 3){
+            this.symbol = '\u25C0';
+        }
+
+
+
+    }
+
+    public int getDirection() {
+        return direction;
+    }
+
+    public void setDirection(int turn) {
+
+        int temp = this.direction+=turn;
+        //fulhack to solve negative direction
+        if(temp == -1){
+            temp = 3;
+        }
+        this.direction = temp%4;
+        setSymbol(this.direction);
+
+
     }
 
     //endregion
+
+
 
 
 }//end of class

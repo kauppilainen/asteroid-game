@@ -46,8 +46,6 @@ public class Game {
         switch (key.getKind()){
             case ArrowUp:
                 System.out.println("upp");
-
-
                 break;
             case ArrowDown:
                 System.out.println("ner");
@@ -55,11 +53,11 @@ public class Game {
                 break;
             case ArrowLeft:
                 System.out.println("vänster");
-
+                player.setDirection(-1);//turn left
                 break;
             case ArrowRight:
                 System.out.println("höger");
-
+                player.setDirection(1);//turn right
                 break;
         }
 
