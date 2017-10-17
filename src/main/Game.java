@@ -16,6 +16,7 @@ public class Game {
 
     public Game(){
         this.terminal = TerminalFacade.createTerminal(System.in,System.out, Charset.forName("UTF8"));
+        render = new Render(terminal);
 
 
     }
@@ -23,10 +24,10 @@ public class Game {
 
 
     public void run() throws InterruptedException{
-        this.player = new PlayerObject();
+        this.player = new PlayerObject(50,15);
         terminal.enterPrivateMode();
         terminal.setCursorVisible(false);
-        render = new Render(terminal);
+
 
 
 
@@ -38,7 +39,7 @@ public class Game {
                 input(key);
             }
 
-            render.drawPlayer();
+            render.drawPlayer(player);
 
             Thread.sleep(200);
 

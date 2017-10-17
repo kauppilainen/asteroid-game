@@ -12,16 +12,14 @@ public class Render {
 
     public Render(Terminal terminal){
         this.terminal = terminal;
-
     }
 
 
 
-    public void drawPlayer(){
+    public void drawPlayer(PlayerObject player){
 
-        terminal.moveCursor();
-
-
+        terminal.moveCursor(player.getxPos(),player.getyPos());
+        terminal.putCharacter(player.getSymbol());
 
     }
 

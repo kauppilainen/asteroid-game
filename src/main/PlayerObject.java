@@ -2,10 +2,16 @@ package main;
 
 public class PlayerObject {
 
-    int xPos;
-    int yPos;
-    double xSpeed;
-    double ySpeed;
+    private int xPos;
+    private int yPos;
+    private double xSpeed;
+    private double ySpeed;
+    private char symbol = '<';
+
+    public PlayerObject(int xPos, int yPos){
+        this.xPos = xPos;
+        this.yPos = yPos;
+    }
 
 
     //region getters & setters
@@ -42,6 +48,15 @@ public class PlayerObject {
     public void setySpeed(double ySpeed) {
         this.ySpeed = ySpeed;
     }
+
+    public char getSymbol() {
+        return symbol;
+    }
+
+    public void setSymbol(char symbol) {
+        this.symbol = symbol;
+    }
+
     //endregion
 
 
