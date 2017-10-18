@@ -48,7 +48,7 @@ public class Game {
         aliens.add(new AlienObject(10, 10, player));  // Create new alien object in alien array
 
         while (true) {
-            
+
             if(rand.nextInt(1000)<12+loopCounter/1500){ // Create asteroid
                 asteroids.add(addRandomAsteroid());
             }
@@ -68,9 +68,15 @@ public class Game {
 
             // alien.shootLazer(projectiles);                VART OCH NÄR SKA DENNA AVFYRAS?
 
-            if (player.isDead(asteroids, projectiles, aliens, render)){ // Check if dead before updating projectiles and asteroids
+            if (player.isDead(asteroids, aliens, render)){ // Check if dead before updating projectiles and asteroids
                 break;
             }
+
+//            for(int i = aliens.size(); i >= 0; i--) {
+//                if(aliens.get(i).isDead(projectiles, render)){
+//                    points++;
+//                }
+//            }
 
             updateProjectiles();
             updateAsteriods();

@@ -30,7 +30,7 @@ public class PlayerObject extends MovingObject {
         this.lives = 3;
     }
 
-    public boolean isDead(List<Asteroid> asteroids, List<Projectile> proj, List<AlienObject> aliens,
+    public boolean isDead(List<Asteroid> asteroids, List<AlienObject> aliens,
                           Render render) throws InterruptedException {
 
         for(int i = asteroids.size() - 1; i >= 0; i--) { // If asteroid has hit player
@@ -40,15 +40,6 @@ public class PlayerObject extends MovingObject {
                 lives--;
                 render.drawAsteroidExplosion(asteroids.get(i));
                 asteroids.remove(i);
-            }
-        }
-
-        for(int i = proj.size() - 1; i >= 0; i--){
-            Projectile projectile = proj.get(i);
-            if(projectile.getxPos() == this.xPos && projectile.getyPos() == this.yPos) {
-                lives--;
-                // ============================== RENDER EXPLOSION HERE ===================================
-                proj.remove(i);
             }
         }
 
