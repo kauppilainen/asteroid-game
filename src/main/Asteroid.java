@@ -10,6 +10,7 @@ public class Asteroid extends MovingObject {
         this.xPosDouble = xPos;
         this.yPosDouble = yPos;
         this.xSpeed = xSpeed;
+
         this.ySpeed = ySpeed;
         setSymbol(' ');
     }
