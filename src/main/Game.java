@@ -15,6 +15,7 @@ public class Game {
     // Declare variables
     private Terminal terminal;
     private PlayerObject player;
+    private AlienObject alien;
     private List<Projectile> projectiles;
     private List<Asteroid> asteroids;
     private Key key;
@@ -36,26 +37,23 @@ public class Game {
         points = 0;
         rand = new Random();
         loopCounter = 0;
-       // asteroids.add(new Asteroid(50,10,0,0));
-
-
     }
 
     public void run() throws InterruptedException {  // Method to run your game
+        projectiles = new ArrayList<>();
+        asteroids = new ArrayList<>();
+
         this.player = new PlayerObject(50, 15); // Create new player object
         terminal.enterPrivateMode();        // Method to create window
         terminal.setCursorVisible(false);   // Makes cursor invisible
 
-        while (true) {
+        alien = new AlienObject(10, 10);  // OBS! TESTAR ALIEN
 
+        while (true) {
 
                 if(rand.nextInt(1000)<20+loopCounter/1500){
                     asteroids.add(addRandomAstroid());
                 }
-
-
-
-
 
             key = terminal.readInput();     // Get key input from terminal
             if(key != null) {                // If a key press has happened
@@ -63,6 +61,10 @@ public class Game {
             }
 
             player.updatePosition();
+            alien.searchForPlayer(player); // Alien now knows where player is
+            alien.updatePosition();
+            alien.shootLazer(projectiles);
+
 
         if (player.isDead(asteroids, render)){
                break;
@@ -84,6 +86,7 @@ public class Game {
             }
 
             render.drawPlayer(player); // Send player info to the render method drawPlayer to be drawn
+            render.drawAlienObject(alien);
 
             int projectileSize = projectiles.size();
             for(int i = projectileSize - 1; i >= 0; i--) {
@@ -124,8 +127,9 @@ public class Game {
                 player.setDirection(1);//turn right
                 break;
             case Tab:
-            System.out.println("Tab");
-            projectiles.add(new Projectile(player)); // Create and add projectile to projectile list
+                System.out.println("Tab");
+            // player.shootLazer(projectiles);// Create and add projectile to projectile list
+                projectiles.add(new Projectile((MovingObject) player)); // Create and add projectile to projectile list
             break;
         }
     }

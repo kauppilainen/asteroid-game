@@ -42,7 +42,7 @@ public class Render {
 
     }
 
-    public void drawProjectile(Projectile proj){
+    public void drawProjectile(Projectile proj) {
         terminal.moveCursor(proj.getxPos(), proj.getyPos());
         terminal.applyForegroundColor(Terminal.Color.YELLOW);
         terminal.putCharacter(proj.getSymbol());
@@ -78,5 +78,11 @@ public class Render {
 
 
     }
+
+    public void drawAlienObject(AlienObject alien){ // Method to draw alien position
+        terminal.moveCursor(alien.getxPos(),alien.getyPos()); // Move cursor to alien position
+        terminal.putCharacter(alien.getSymbol()); // Puts character on screen
+    }
+
 
 }//end of class
