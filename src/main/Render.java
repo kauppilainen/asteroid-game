@@ -16,7 +16,15 @@ public class Render {
     }
 
     public void drawPlayer(PlayerObject player){ // Method to draw player position
-
+        if (player.getLives() == 2){
+            terminal.applyForegroundColor(Terminal.Color.YELLOW);
+        }
+        else if (player.getLives()== 1){
+            terminal.applyForegroundColor(Terminal.Color.RED);
+        }
+        else {
+            terminal.applyForegroundColor(Terminal.Color.DEFAULT);
+        }
         terminal.moveCursor(player.getxPos(),player.getyPos()); // Move cursor to player position
         terminal.putCharacter(player.getSymbol()); // Puts character on screen
 
@@ -56,6 +64,7 @@ public class Render {
     }
 
     public void printGameOver (int points){
+        terminal.clearScreen();
         String gameOver = "Game Over!";
         String pointString ="Points: "+points;
         terminal.moveCursor(45,10);

@@ -36,6 +36,7 @@ public class Game {
         points = 0;
         rand = new Random();
         loopCounter = 0;
+        asteroids.add(new Asteroid(50,10,0,0));
 
 
     }
@@ -55,6 +56,7 @@ public class Game {
 
 
 
+
             key = terminal.readInput();     // Get key input from terminal
             if(key != null) {                // If a key press has happened
                 input(key);                 // Send key to input where the input is dealt with
@@ -62,7 +64,7 @@ public class Game {
 
             player.updatePosition();
 
-        if (player.isDead(asteroids)){
+        if (player.isDead(asteroids, render)){
                break;
           }
 
