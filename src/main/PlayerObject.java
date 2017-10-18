@@ -5,7 +5,6 @@ import java.util.List;
 
 public class PlayerObject extends MovingObject {
     // Declare variables
-    private int direction; //direction 0-3, 0 = upp
     private int lives;
 
     //Upp: '\u25B2'
@@ -31,29 +30,41 @@ public class PlayerObject extends MovingObject {
         this.lives = 3;
     }
 
-    public boolean isDead(List<Asteroid> asteroids, Render render)throws InterruptedException{
-        for (int i = asteroids.size()-1; i >=0 ; i--) {
+    public boolean isDead(List<Asteroid> asteroids, List<Projectile> proj, List<AlienObject> aliens,
+                          Render render) throws InterruptedException {
+
+        for(int i = asteroids.size() - 1; i >= 0; i--) { // If asteroid has hit player
             Asteroid asteroid = asteroids.get(i);
-            if (asteroid.getxPos() == this.xPos && asteroid.getyPos()==this.yPos ||asteroid.getxPos()+1 == this.xPos && asteroid.getyPos() == this.yPos){
+            if(asteroid.getxPos() == this.xPos && asteroid.getyPos() == this.yPos ||
+               asteroid.getxPos() + 1 == this.xPos && asteroid.getyPos() == this.yPos) { // If same position
                 lives--;
-                System.out.println(lives);
-                render.drawAstroidExplosion(asteroids.get(i));
+                render.drawAsteroidExplosion(asteroids.get(i));
                 asteroids.remove(i);
-
             }
-
         }
-//        for(Asteroid asteroid:asteroids){
-//            if (asteroid.getxPos() == this.xPos && asteroid.getyPos()==this.yPos ||asteroid.getxPos()+1 == this.xPos && asteroid.getyPos() == this.yPos){
-//                lives--;
-//                System.out.println(lives);
-//            }
-//        }
-        if(lives <= 0){
+
+        for(int i = proj.size() - 1; i >= 0; i--){
+            Projectile projectile = proj.get(i);
+            if(projectile.getxPos() == this.xPos && projectile.getyPos() == this.yPos) {
+                lives--;
+                // ============================== RENDER EXPLOSION HERE ===================================
+                proj.remove(i);
+            }
+        }
+
+        // OBS! FILOSOFISKT SETT BORDE INTE ALIEN TAS BORT HÄR UTAN I SIN EGEN KLASS
+        for(int i = aliens.size() - 1; i >= 0; i--) {
+            AlienObject alien = aliens.get(i);
+            if(alien.getxPos() == this.xPos && alien.getyPos() == this.yPos){
+                lives--;
+                aliens.remove(i);
+            }
+        }
+
+        if(lives <= 0) {
             return true;
         }
         return false;
-
     }
 
     public void moveForward() {
@@ -82,7 +93,6 @@ public class PlayerObject extends MovingObject {
     }
 
     public void updatePosition() {
-
         xPosDouble += xSpeed;
         yPosDouble += ySpeed;
         int tempxPos = (int) (xPosDouble);
@@ -90,10 +100,6 @@ public class PlayerObject extends MovingObject {
         setxPos(tempxPos);
         setyPos(tempyPos);
         //System.out.println(xPos + " " + yPos + " speed X:" + xSpeed + " Y: " + ySpeed);
-    }
-
-    void shootLazer(List<Projectile> projectiles){
-        projectiles.add(new Projectile((MovingObject) this)); // Create and add projectile to projectile listprojectiles.add(new Projectile((MovingObject) this)); // Create and add projectile to projectile list
     }
 
     public void setSymbol(int direction) {
@@ -108,7 +114,6 @@ public class PlayerObject extends MovingObject {
             this.symbol = '\u25C0';
         }
     }
-
 
     public int getLives() {
         return lives;
@@ -126,26 +131,24 @@ public class PlayerObject extends MovingObject {
     }
 
     @Override
-    public void setxPos(int newXPos){
+    public void setxPos(int newXPos) {
         this.xPos = newXPos;
-        if(this.xPos < 0){
+        if(this.xPos < 0) {
             this.xPos = 99;
             this.xPosDouble = this.xPos;
-        }
-        else if(this.xPos > 99) {
+        } else if(this.xPos > 99) {
             this.xPos = 1;
             this.xPosDouble = this.xPos;
         }
     }
 
     @Override
-    public void setyPos(int newYPos){
+    public void setyPos(int newYPos) {
         this.yPos = newYPos;
-        if(this.yPos < 0){
+        if(this.yPos < 0) {
             this.yPos = 30;
             this.yPosDouble = this.yPos;
-        }
-        else if(this.yPos > 30){
+        } else if(this.yPos > 30) {
             this.yPos = 0;
             this.yPosDouble = this.yPos;
         }

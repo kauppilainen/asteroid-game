@@ -15,7 +15,7 @@ public class Game {
     // Declare variables
     private Terminal terminal;
     private PlayerObject player;
-    private AlienObject alien;
+    private List<AlienObject> aliens;
     private List<Projectile> projectiles;
     private List<Asteroid> asteroids;
     private Key key;
@@ -32,6 +32,7 @@ public class Game {
                 Charset.forName("UTF8"));
         render = new Render(terminal); // Create new Render object with terminal as parameter
 
+        aliens = new ArrayList<>();
         projectiles = new ArrayList<>();
         asteroids = new ArrayList<>();
         points = 0;
@@ -41,76 +42,94 @@ public class Game {
     }
 
     public void run() throws InterruptedException {  // Method to run your game
-        projectiles = new ArrayList<>();
-        asteroids = new ArrayList<>();
-
-        this.player = new PlayerObject(50, 15); // Create new player object
         terminal.enterPrivateMode();        // Method to create window
         terminal.setCursorVisible(false);   // Makes cursor invisible
 
-        alien = new AlienObject(10, 10);  // OBS! TESTAR ALIEN
+        player = new PlayerObject(50, 15); // Create new player object
+        aliens.add(new AlienObject(10, 10, player));  // Create new alien object in alien array
 
         while (true) {
 
-                if(rand.nextInt(1000)<12+loopCounter/1500){
-                    asteroids.add(addRandomAstroid());
-                }
-
-            key = terminal.readInput();     // Get key input from terminal
-            if(key != null) {                // If a key press has happened
-                input(key);                 // Send key to input where the input is dealt with
+            if(rand.nextInt(1000)<12+loopCounter/1500){ // Create asteroid
+                asteroids.add(addRandomAsteroid());
             }
 
+            key = terminal.readInput();     // Get key input
+            if(key != null) {                // If a key press has happened
+                input(key);
+            }
+
+            // Update object positions
             player.updatePosition();
-            alien.searchForPlayer(player); // Alien now knows where player is
-            alien.updatePosition();
-            alien.shootLazer(projectiles);
 
+            for(int i = 0; i < aliens.size(); i++) {
+                aliens.get(i).updatePosition();
+            }
 
-        if (player.isDead(asteroids, render)){
-               break;
-          }
+            // alien.shootLazer(projectiles);                VART OCH NÄR SKA DENNA AVFYRAS?
 
-            for (int i = asteroids.size()-1; i >= 0 ; i--) {
-                asteroids.get(i).updatePosition();
-                if(asteroids.get(i).hitByProjectile(projectiles)){
-                    render.drawAstroidExplosion(asteroids.get(i));
-                    asteroids.remove(i);
-                    points++;
+            if (player.isDead(asteroids, projectiles, aliens, render)){ // Check if dead before updating projectiles and asteroids
+                break;
+            }
 
+            updateProjectiles();
+            updateAsteriods();
 
-                }
+            // Render objects
+            render.drawPlayer(player);
+            for(AlienObject alien : aliens) {
+                render.drawAlien(alien);
+            }
+
+            for(Projectile p: projectiles){
+                render.drawProjectile(p); // Draw projectile
             }
 
             for (Asteroid a:asteroids){
                 render.drawAsteroid(a);
             }
 
-            render.drawPlayer(player); // Send player info to the render method drawPlayer to be drawn
-            render.drawAlienObject(alien);
-
-            int projectileSize = projectiles.size();
-            for(int i = projectileSize - 1; i >= 0; i--) {
-                int x = projectiles.get(i).getxPos();
-                int y = projectiles.get(i).getyPos();
-                projectiles.get(i).updatePosition();
-
-                // Remove projectile if hits edge of screen
-                if(x < 0 || x > 100 || y < 0 || y > 30) {
-                    projectiles.remove(i);
-                    break;
-                }
-
-                render.drawProjectile(projectiles.get(i)); // Draw projectile
-            }
-
-
             Thread.sleep(20); // Pause program for 20ms
             terminal.clearScreen();
             loopCounter++;
-        }//End of loop
-              System.out.println("Utanför loop!!");
+        }
+
+        System.out.println("Utanför loop!!");
         render.printGameOver(points);
+    }
+
+    private void updateAliens(){
+        for(int i = aliens.size() - 1; i >= 0; i--) {
+            aliens.get(i).updatePosition();
+            if(aliens.get(i).hitByProjectile(projectiles)) {
+                aliens.remove(i);
+                points++;
+            }
+        }
+    }
+    private void updateAsteriods() {
+        for (int i = asteroids.size()-1; i >= 0 ; i--) { // Update asteroids
+            asteroids.get(i).updatePosition();
+            if(asteroids.get(i).hitByProjectile(projectiles)){
+                render.drawAsteroidExplosion(asteroids.get(i));
+                asteroids.remove(i);
+                points++;
+            }
+        }
+    }
+
+    private void updateProjectiles() {
+        for(int i = projectiles.size() - 1; i >= 0; i--) { // Update projectiles
+            int x = projectiles.get(i).getxPos();
+            int y = projectiles.get(i).getyPos();
+            projectiles.get(i).updatePosition();
+
+            // Remove projectile if hits edge of screen
+            if(x < 0 || x > 100 || y < 0 || y > 30) {
+                projectiles.remove(i);
+                break;
+            }
+        }
     }
 
     public void input(Key key) {
@@ -130,12 +149,12 @@ public class Game {
             case Tab:
                 System.out.println("Tab");
             // player.shootLazer(projectiles);// Create and add projectile to projectile list
-                projectiles.add(new Projectile((MovingObject) player)); // Create and add projectile to projectile list
+                projectiles.add(new Projectile(player)); // Create and add projectile to projectile list
             break;
         }
     }
 
-    private Asteroid addRandomAstroid(){
+    private Asteroid addRandomAsteroid(){
         int x=0;
         int y=0;
         double xSpeed = -0.2;

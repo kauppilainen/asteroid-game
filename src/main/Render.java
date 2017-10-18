@@ -27,19 +27,12 @@ public class Render {
         }
         terminal.moveCursor(player.getxPos(),player.getyPos()); // Move cursor to player position
         terminal.putCharacter(player.getSymbol()); // Puts character on screen
-
-
     }
 
-
-    public void drawAsteroid(Asteroid asteroid){ // Method to draw player position
-        terminal.applyBackgroundColor(150,150,150);
-        terminal.moveCursor(asteroid.getxPos(),asteroid.getyPos()); // Move cursor to player position
-        terminal.putCharacter(asteroid.getSymbol()); // Puts character on screen
-        terminal.moveCursor(asteroid.getxPos()+1,asteroid.getyPos());
-        terminal.putCharacter(asteroid.getSymbol());
-        terminal.applyBackgroundColor(Terminal.Color.DEFAULT);
-
+    public void drawAlien(AlienObject alien){ // Method to draw alien position
+        terminal.applyForegroundColor(Terminal.Color.DEFAULT); // Set so alien don't get same color as player
+        terminal.moveCursor(alien.getxPos(),alien.getyPos()); // Move cursor to alien position
+        terminal.putCharacter(alien.getSymbol()); // Puts character on screen
     }
 
     public void drawProjectile(Projectile proj) {
@@ -49,7 +42,16 @@ public class Render {
         terminal.applyForegroundColor(Terminal.Color.DEFAULT);
     }
 
-    public void drawAstroidExplosion(Asteroid asteroid){
+    public void drawAsteroid(Asteroid asteroid){ // Method to draw player position
+        terminal.applyBackgroundColor(150,150,150);
+        terminal.moveCursor(asteroid.getxPos(),asteroid.getyPos()); // Move cursor to player position
+        terminal.putCharacter(asteroid.getSymbol()); // Puts character on screen
+        terminal.moveCursor(asteroid.getxPos()+1,asteroid.getyPos());
+        terminal.putCharacter(asteroid.getSymbol());
+        terminal.applyBackgroundColor(Terminal.Color.DEFAULT);
+    }
+
+    public void drawAsteroidExplosion(Asteroid asteroid){
         terminal.applyBackgroundColor(Terminal.Color.YELLOW);
         terminal.applyForegroundColor(Terminal.Color.RED);
 
@@ -77,11 +79,6 @@ public class Render {
         }
 
 
-    }
-
-    public void drawAlienObject(AlienObject alien){ // Method to draw alien position
-        terminal.moveCursor(alien.getxPos(),alien.getyPos()); // Move cursor to alien position
-        terminal.putCharacter(alien.getSymbol()); // Puts character on screen
     }
 
 

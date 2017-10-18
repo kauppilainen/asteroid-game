@@ -3,12 +3,13 @@ package main;
 public abstract class EnemyObject extends MovingObject{
 
     //Här deklarerar vi de variabler som vi kommer att ha i Alienobjekt.
+    PlayerObject player;
     int playerXPos;
     int playerYPos;
 
     //Skapa en konstruktor för EnemyObject
-    public EnemyObject() {
-
+    public EnemyObject(PlayerObject player) {
+        this.player = player;
     }
 
     //Vi behöver en metod som söker upp Playerobjekt.

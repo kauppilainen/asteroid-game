@@ -3,7 +3,7 @@ package main;
 public class Projectile extends MovingObject {
     private PlayerObject player;
     private AlienObject alien;
-    private int direction = 0; //direction 0-3, 0 = upp
+    private int direction; //direction 0-3, 0 = upp
 
     public Projectile(MovingObject movingObject) {
         if(movingObject instanceof PlayerObject){
@@ -26,7 +26,6 @@ public class Projectile extends MovingObject {
     }
 
     public void setSymbol(int direction) {
-
         if(direction == 0 || direction == 2) {
             this.symbol = '|';
         } else if(direction == 1 || direction == 3) {
