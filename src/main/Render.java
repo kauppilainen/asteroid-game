@@ -58,11 +58,11 @@ public class Render {
     public void printGameOver (int points){
         String gameOver = "Game Over!";
         String pointString ="Points: "+points;
-        terminal.moveCursor(45,15);
+        terminal.moveCursor(45,10);
         for (int i = 0; i < gameOver.length() ; i++) {
             terminal.putCharacter(gameOver.charAt(i));
         }
-        terminal.moveCursor(45,17);
+        terminal.moveCursor(45,12);
         for (int i = 0; i < pointString.length() ; i++) {
             terminal.putCharacter(pointString.charAt(i));
         }

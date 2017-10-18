@@ -38,26 +38,26 @@ public class PlayerObject extends MovingObject {
     public void moveForward() { // OBS! JAG HAR FUCKAT NÅTT MED ACCELERATIONEN
 
         if(direction == 0) {
-            setySpeed(-0.01);
+            setySpeed(-0.02);
         } else if(direction == 1) {
-            setxSpeed(0.01);
+            setxSpeed(0.02);
         } else if(direction == 2) {
-            setySpeed(0.01);
+            setySpeed(0.02);
         } else if(direction == 3) {
-            setxSpeed(-0.01);
+            setxSpeed(-0.2);
         }
     }
 
     public void brake() {
 
         if(direction == 0) {
-            setySpeed(0.005);
+            setySpeed(0.01);
         } else if(direction == 1) {
-            setxSpeed(-0.005);
+            setxSpeed(-0.01);
         } else if(direction == 2) {
-            setySpeed(-0.005);
+            setySpeed(-0.01);
         } else if(direction == 3) {
-            setxSpeed(0.005);
+            setxSpeed(0.01);
         }
     }
 

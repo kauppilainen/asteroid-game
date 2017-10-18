@@ -6,6 +6,7 @@ import com.googlecode.lanterna.input.Key;
 import java.util.ArrayList;
 import java.util.List;
 import java.nio.charset.Charset;
+import java.util.Random;
 
 
 public class Game {
@@ -19,6 +20,8 @@ public class Game {
     private Key key;
     private Render render;
     private int points;
+    private Random rand;
+    private long loopCounter;
 
 
     public Game() { // Constructor
@@ -31,6 +34,8 @@ public class Game {
         projectiles = new ArrayList<>();
         asteroids = new ArrayList<>();
         points = 0;
+        rand = new Random();
+        loopCounter = 0;
 
 
     }
@@ -39,17 +44,16 @@ public class Game {
         this.player = new PlayerObject(50, 15); // Create new player object
         terminal.enterPrivateMode();        // Method to create window
         terminal.setCursorVisible(false);   // Makes cursor invisible
-        asteroids.add(new Asteroid(20,1,0.05,0.1));
-        asteroids.add(new Asteroid(60,1,0.01,0.1));
-        asteroids.add(new Asteroid(40,30,-0.02,0.2));
-        asteroids.add(new Asteroid(80,30,-0.01,0.6));
-        asteroids.add(new Asteroid(0,10,0.001,0.1));
-        asteroids.add(new Asteroid(30,30,-0.03,-0.3));
-        asteroids.add(new Asteroid(60,20,0,0));
-        asteroids.add(new Asteroid(50,12,0,0));
-
 
         while (true) {
+
+
+                if(rand.nextInt(1000)<12+loopCounter/1500){
+                    asteroids.add(addRandomAstroid());
+                }
+
+
+
 
             key = terminal.readInput();     // Get key input from terminal
             if(key != null) {                // If a key press has happened
@@ -58,9 +62,9 @@ public class Game {
 
             player.updatePosition();
 
-            if (player.isDead(asteroids)){
-                break;
-            }
+        if (player.isDead(asteroids)){
+               break;
+          }
 
             for (int i = asteroids.size()-1; i >= 0 ; i--) {
                 asteroids.get(i).updatePosition();
@@ -97,9 +101,9 @@ public class Game {
 
             Thread.sleep(20); // Pause program for 20ms
             terminal.clearScreen();
+            loopCounter++;
         }//End of loop
-
-        System.out.println("Utanför loop!!");
+              System.out.println("Utanför loop!!");
         render.printGameOver(points);
     }
 
@@ -122,6 +126,33 @@ public class Game {
             projectiles.add(new Projectile(player)); // Create and add projectile to projectile list
             break;
         }
+    }
+
+    private Asteroid addRandomAstroid(){
+        int x=0;
+        int y=0;
+        double xSpeed = -0.2;
+        double ySpeed = -0.2;
+
+        if (rand.nextInt(100)<50){
+            x = 0;
+            y = rand.nextInt(30);
+        }
+        else{
+            y = 0;
+            x = rand.nextInt(100);
+        }
+        xSpeed += rand.nextInt(5)/10.0;
+        ySpeed += rand.nextInt(5)/10.0;
+
+        //Here you can adjust start speed of atroids by changing one variable
+        double adjustSpeed = 0.65;
+        xSpeed *= adjustSpeed;
+        ySpeed *= adjustSpeed;
+
+
+        return new Asteroid(x,y,xSpeed,ySpeed);
+
     }
 
 }
