@@ -114,7 +114,7 @@ public class PlayerObject {
 
     public void setxSpeed(double xSpeedChange) {
         this.xSpeed += xSpeedChange;
-        if(this.xSpeed > 0.3){
+        if(this.xSpeed > 0.3){//speed limit
             this.xSpeed = 0.3;
         }
         else if(this.xSpeed < -0.3){
@@ -128,7 +128,7 @@ public class PlayerObject {
 
     public void setySpeed(double ySpeedChange) {
         this.ySpeed += ySpeedChange;
-        if(this.ySpeed > 0.3){
+        if(this.ySpeed > 0.3){//speed limit
             this.ySpeed = 0.3;
         }
         else if(this.ySpeed < -0.3){
