@@ -1,9 +1,8 @@
 package main;
 
-public class PlayerObject extends MovingObject {
-    // Declare variables
-    private int direction; //direction 0-3, 0 = upp
+import java.util.List;
 
+public class PlayerObject extends MovingObject {
     //Upp: '\u25B2'
     //Ner: '\u25BC'
     //Vänster: '\u25C0'
@@ -20,10 +19,11 @@ public class PlayerObject extends MovingObject {
         this.ySpeed = 0;
         this.direction = 0;
         setSymbol(direction);
+        maxSpeed = 0.3;
+        minSpeed = -0.3;
     }
 
-    public void moveForward() { // OBS! JAG HAR FUCKAT NÅTT MED ACCELERATIONEN
-
+    public void moveForward() {
         if(direction == 0) {
             setySpeed(-0.01);
         } else if(direction == 1) {
@@ -58,6 +58,10 @@ public class PlayerObject extends MovingObject {
         System.out.println(xPos + " " + yPos + " speed X:" + xSpeed + " Y: " + ySpeed);
     }
 
+    void shootLazer(List<Projectile> projectiles){
+        projectiles.add(new Projectile((MovingObject) this)); // Create and add projectile to projectile listprojectiles.add(new Projectile((MovingObject) this)); // Create and add projectile to projectile list
+    }
+
     public void setSymbol(int direction) {
 
         if(direction == 0) {
@@ -71,10 +75,6 @@ public class PlayerObject extends MovingObject {
         }
     }
 
-    public int getDirection() {
-        return direction;
-    }
-
     public void setDirection(int turn) {
 
         int temp = this.direction += turn;
@@ -84,8 +84,6 @@ public class PlayerObject extends MovingObject {
         }
         this.direction = temp % 4;
         setSymbol(this.direction);
-
-
     }
 
     @Override

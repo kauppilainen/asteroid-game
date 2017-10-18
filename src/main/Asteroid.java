@@ -13,6 +13,9 @@ public class Asteroid extends MovingObject {
 
         this.ySpeed = ySpeed;
         setSymbol(' ');
+
+        maxSpeed = 0.3;
+        minSpeed = -0.3;
     }
 
     public void setSymbol(char symbol) {

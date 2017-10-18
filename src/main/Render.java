@@ -34,9 +34,15 @@ public class Render {
 
     }
 
-    public void drawProjectile(Projectile proj){
+    public void drawProjectile(Projectile proj) {
         terminal.moveCursor(proj.getxPos(), proj.getyPos());
         terminal.putCharacter(proj.getSymbol());
+    }
+
+
+    public void drawAlienObject(AlienObject alien){ // Method to draw alien position
+        terminal.moveCursor(alien.getxPos(),alien.getyPos()); // Move cursor to alien position
+        terminal.putCharacter(alien.getSymbol()); // Puts character on screen
     }
 
 

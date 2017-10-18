@@ -8,6 +8,9 @@ public abstract class MovingObject {
     protected double xSpeed;
     protected double ySpeed;
     protected char symbol;
+    protected int direction; //direction 0-3, 0 = upp
+    protected double maxSpeed;
+    protected double minSpeed;
 
     abstract void updatePosition();
 
@@ -33,11 +36,11 @@ public abstract class MovingObject {
 
     public void setxSpeed(double xSpeedChange) {
         this.xSpeed += xSpeedChange;
-        if(this.xSpeed > 0.3){
-            this.xSpeed = 0.3;
+        if(this.xSpeed > maxSpeed){
+            this.xSpeed = maxSpeed;
         }
-        else if(this.xSpeed < -0.3){
-            this.xSpeed = -0.3;
+        else if(this.xSpeed < minSpeed){
+            this.xSpeed = minSpeed;
         }
     }
 
@@ -59,4 +62,7 @@ public abstract class MovingObject {
         return symbol;
     }
 
+    public int getDirection() {
+        return direction;
+    }
 }

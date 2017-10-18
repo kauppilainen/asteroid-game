@@ -2,17 +2,27 @@ package main;
 
 public class Projectile extends MovingObject {
     private PlayerObject player;
-    private int playerXPos;
-    private int playerYPos;
+    private AlienObject alien;
     private int direction = 0; //direction 0-3, 0 = upp
 
-    public Projectile(PlayerObject player) {
-        this.player = player;               // Set player object to our player variable
-        this.xPos = player.getxPos(); // Get player position
-        this.yPos = player.getyPos();
-        direction = player.getDirection();  // Get player direction
-        setSymbol(direction); // Set symbol depending on direction
-        updatePosition();   // Set projectile starting position
+    public Projectile(MovingObject movingObject) {
+        if(movingObject instanceof PlayerObject){
+            player = (PlayerObject) movingObject; // IF SATS OCH KOLLA VAD FÖR SUBKLASS
+            this.xPos = player.getxPos(); // Get object position
+            this.yPos = player.getyPos();
+            direction = player.getDirection();  // Get player direction
+            setSymbol(direction); // Set symbol depending on direction
+            updatePosition();   // Set projectile starting position
+        }
+
+        if(movingObject instanceof AlienObject){
+            alien = (AlienObject) movingObject; // IF SATS OCH KOLLA VAD FÖR SUBKLASS
+            this.xPos = alien.getxPos(); // Get object position
+            this.yPos = alien.getyPos();
+            direction = alien.getDirection();  // Get player direction
+            setSymbol(direction); // Set symbol depending on direction
+            updatePosition();   // Set projectile starting position
+        }
     }
 
     public void setSymbol(int direction) {
