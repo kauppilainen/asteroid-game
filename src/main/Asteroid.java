@@ -16,7 +16,7 @@ public class Asteroid {
         this.xPosDouble = xPos;
         this.yPosDouble = yPos;
         this.xSpeed = xSpeed;
-        this.ySpeed = ySpeed;
+        this.ySpeed = ySpeed;z
         this.symbol =' ';
     }
 
