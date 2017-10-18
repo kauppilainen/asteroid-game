@@ -20,7 +20,9 @@ public class Render {
         terminal.moveCursor(player.getxPos(),player.getyPos()); // Move cursor to player position
         terminal.putCharacter(player.getSymbol()); // Puts character on screen
 
+
     }
+
 
     public void drawAsteroid(Asteroid asteroid){ // Method to draw player position
         terminal.applyBackgroundColor(150,150,150);
@@ -36,5 +38,6 @@ public class Render {
         terminal.moveCursor(proj.getxPos(), proj.getyPos());
         terminal.putCharacter(proj.getSymbol());
     }
+
 
 }//end of class

@@ -3,10 +3,9 @@ package main;
 import com.googlecode.lanterna.TerminalFacade;
 import com.googlecode.lanterna.terminal.Terminal;
 import com.googlecode.lanterna.input.Key;
-
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
+import java.nio.charset.Charset;
 
 
 public class Game {
@@ -16,46 +15,66 @@ public class Game {
     private Terminal terminal;
     private PlayerObject player;
     private List<Projectile> projectiles;
+    private List<Asteroid> asteroids;
     private Key key;
     private Render render;
 
 
-    public Game(){ // Constructor
+    public Game() { // Constructor
         // Initialize our variables
         this.terminal = TerminalFacade.createTerminal(System.in,
-                                                      System.out,
-                                                      Charset.forName("UTF8"));
+                System.out,
+                Charset.forName("UTF8"));
         render = new Render(terminal); // Create new Render object with terminal as parameter
+
         projectiles = new ArrayList<>();
+        asteroids = new ArrayList<>();
+
 
     }
 
-    public void run() throws InterruptedException{  // Method to run your game
-        this.player = new PlayerObject(50,15); // Create new player object
+    public void run() throws InterruptedException {  // Method to run your game
+        this.player = new PlayerObject(50, 15); // Create new player object
         terminal.enterPrivateMode();        // Method to create window
         terminal.setCursorVisible(false);   // Makes cursor invisible
-        Asteroid asteroid = new Asteroid(10,1,0.05,0.1);
+        asteroids.add(new Asteroid(20,1,0.05,0.1));
+        asteroids.add(new Asteroid(60,1,0.01,0.1));
+        asteroids.add(new Asteroid(40,30,-0.02,0.2));
+        asteroids.add(new Asteroid(80,30,-0.01,0.6));
+        asteroids.add(new Asteroid(0,10,0.001,0.1));
+        asteroids.add(new Asteroid(30,30,-0.03,-0.3));
 
-        while (true){
+
+        while (true) {
 
             key = terminal.readInput();     // Get key input from terminal
-            if(key != null){                // If a key press has happened
+            if(key != null) {                // If a key press has happened
                 input(key);                 // Send key to input where the input is dealt with
             }
 
-            player.update();
-            asteroid.update();
+            player.updatePosition();
 
-            render.drawAsteroid(asteroid);
+            for (int i = asteroids.size()-1; i >= 0 ; i--) {
+                asteroids.get(i).updatePosition();
+                if(asteroids.get(i).hitByProjectile(projectiles)){
+                    asteroids.remove(i);
+                }
+            }
+
+            for (Asteroid a:asteroids){
+                render.drawAsteroid(a);
+            }
+
             render.drawPlayer(player); // Send player info to the render method drawPlayer to be drawn
+
             int projectileSize = projectiles.size();
-            for(int i = projectileSize-1; i >= 0; i--) {
+            for(int i = projectileSize - 1; i >= 0; i--) {
                 int x = projectiles.get(i).getxPos();
                 int y = projectiles.get(i).getyPos();
-                projectiles.get(i).setPosition(x, y);
+                projectiles.get(i).updatePosition();
 
                 // Remove projectile if hits edge of screen
-                if(x < 0 || x > 100 || y < 0 || y > 30){
+                if(x < 0 || x > 100 || y < 0 || y > 30) {
                     projectiles.remove(i);
                     break;
                 }
@@ -64,13 +83,13 @@ public class Game {
             }
 
 
-            Thread.sleep(20); // Pause program for 200ms
+            Thread.sleep(20); // Pause program for 20ms
             terminal.clearScreen();
         }
     }
 
-    public void input(Key key){
-        switch (key.getKind()){ // If key input was one of our expected cases, do the case instruction
+    public void input(Key key) {
+        switch (key.getKind()) { // If key input was one of our expected cases, do the case instruction
             case ArrowUp:
                 player.moveForward();
                 break;
@@ -84,11 +103,10 @@ public class Game {
                 player.setDirection(1);//turn right
                 break;
             case Tab:
-                System.out.println("Tab");
-                projectiles.add(new Projectile(player)); // Create and add projectile to projectile list
-                break;
+            System.out.println("Tab");
+            projectiles.add(new Projectile(player)); // Create and add projectile to projectile list
+            break;
         }
     }
-
 
 }
