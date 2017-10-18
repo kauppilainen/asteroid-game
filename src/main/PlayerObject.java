@@ -1,5 +1,8 @@
 package main;
 
+
+import java.util.List;
+
 public class PlayerObject extends MovingObject {
     // Declare variables
     private int direction; //direction 0-3, 0 = upp
@@ -20,6 +23,16 @@ public class PlayerObject extends MovingObject {
         this.ySpeed = 0;
         this.direction = 0;
         setSymbol(direction);
+    }
+
+    public boolean isDead(List<Asteroid> asteroids)throws InterruptedException{
+        for(Asteroid asteroid:asteroids){
+            if (asteroid.getxPos() == this.xPos && asteroid.getyPos()==this.yPos ||asteroid.getxPos()+1 == this.xPos && asteroid.getyPos() == this.yPos ){
+                System.out.println("You are dead!");
+                return true;
+            }
+        }
+        return false;
     }
 
     public void moveForward() { // OBS! JAG HAR FUCKAT NÅTT MED ACCELERATIONEN

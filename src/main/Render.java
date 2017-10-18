@@ -36,8 +36,38 @@ public class Render {
 
     public void drawProjectile(Projectile proj){
         terminal.moveCursor(proj.getxPos(), proj.getyPos());
+        terminal.applyForegroundColor(Terminal.Color.YELLOW);
         terminal.putCharacter(proj.getSymbol());
+        terminal.applyForegroundColor(Terminal.Color.DEFAULT);
     }
 
+    public void drawAstroidExplosion(Asteroid asteroid){
+        terminal.applyBackgroundColor(Terminal.Color.YELLOW);
+        terminal.applyForegroundColor(Terminal.Color.RED);
+
+        for (int x = asteroid.getxPos()-1; x < asteroid.getxPos()+2 ; x++) {
+            for (int y = asteroid.getyPos()-1; y < asteroid.getyPos()+2 ; y++) {
+                terminal.moveCursor(x,y);
+                terminal.putCharacter('\u2593');
+            }
+        }
+        terminal.applyForegroundColor(Terminal.Color.DEFAULT);
+        terminal.applyBackgroundColor(Terminal.Color.DEFAULT);
+    }
+
+    public void printGameOver (int points){
+        String gameOver = "Game Over!";
+        String pointString ="Points: "+points;
+        terminal.moveCursor(45,15);
+        for (int i = 0; i < gameOver.length() ; i++) {
+            terminal.putCharacter(gameOver.charAt(i));
+        }
+        terminal.moveCursor(45,17);
+        for (int i = 0; i < pointString.length() ; i++) {
+            terminal.putCharacter(pointString.charAt(i));
+        }
+
+
+    }
 
 }//end of class

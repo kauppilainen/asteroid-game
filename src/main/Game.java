@@ -18,6 +18,7 @@ public class Game {
     private List<Asteroid> asteroids;
     private Key key;
     private Render render;
+    private int points;
 
 
     public Game() { // Constructor
@@ -29,6 +30,7 @@ public class Game {
 
         projectiles = new ArrayList<>();
         asteroids = new ArrayList<>();
+        points = 0;
 
 
     }
@@ -43,6 +45,8 @@ public class Game {
         asteroids.add(new Asteroid(80,30,-0.01,0.6));
         asteroids.add(new Asteroid(0,10,0.001,0.1));
         asteroids.add(new Asteroid(30,30,-0.03,-0.3));
+        asteroids.add(new Asteroid(60,20,0,0));
+        asteroids.add(new Asteroid(50,12,0,0));
 
 
         while (true) {
@@ -54,10 +58,18 @@ public class Game {
 
             player.updatePosition();
 
+            if (player.isDead(asteroids)){
+                break;
+            }
+
             for (int i = asteroids.size()-1; i >= 0 ; i--) {
                 asteroids.get(i).updatePosition();
                 if(asteroids.get(i).hitByProjectile(projectiles)){
+                    render.drawAstroidExplosion(asteroids.get(i));
                     asteroids.remove(i);
+                    points++;
+
+
                 }
             }
 
@@ -85,7 +97,10 @@ public class Game {
 
             Thread.sleep(20); // Pause program for 20ms
             terminal.clearScreen();
-        }
+        }//End of loop
+
+        System.out.println("Utanför loop!!");
+        render.printGameOver(points);
     }
 
     public void input(Key key) {

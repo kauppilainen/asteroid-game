@@ -28,8 +28,11 @@ public class Asteroid extends MovingObject {
     }
 
     public boolean hitByProjectile(List<Projectile> projectiles){
-        for(Projectile p:projectiles){
-            if(p.getxPos() == this.getxPos() && p.getyPos() == this.getyPos() || p.getxPos() == this.getxPos()+1 && p.getyPos() == this.getyPos() ){
+        for (int i = projectiles.size()-1; i >= 0 ; i--) {
+            //test if on same position as projectile
+            if(projectiles.get(i).getxPos() == this.getxPos() && projectiles.get(i).getyPos() == this.getyPos()
+                    || projectiles.get(i).getxPos() == this.getxPos()+1 && projectiles.get(i).getyPos() == this.getyPos() ){
+                projectiles.remove(i);
                 return true;
             }
         }
