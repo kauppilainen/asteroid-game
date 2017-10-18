@@ -19,8 +19,8 @@ public abstract class EnemyObject extends MovingObject{
 
     public void updateDirection(PlayerObject player){
         int diffX, diffY;
-        diffX = playerXPos > xPos;
-        if (playerXPos > xPos && ) {
+        //diffX = playerXPos > xPos;
+        if (playerXPos > xPos) {
             direction = 1;
         } else if (xPos > playerXPos) {
             direction = 3;
