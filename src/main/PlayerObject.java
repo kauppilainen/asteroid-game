@@ -61,7 +61,7 @@ public class PlayerObject extends MovingObject {
             }
         }
 
-        if(lives <= 0) {
+        if(lives <= 0){
             return true;
         }
         return false;
