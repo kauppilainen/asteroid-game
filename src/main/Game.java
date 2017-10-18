@@ -36,7 +36,7 @@ public class Game {
         points = 0;
         rand = new Random();
         loopCounter = 0;
-        asteroids.add(new Asteroid(50,10,0,0));
+       // asteroids.add(new Asteroid(50,10,0,0));
 
 
     }
@@ -49,7 +49,7 @@ public class Game {
         while (true) {
 
 
-                if(rand.nextInt(1000)<12+loopCounter/1500){
+                if(rand.nextInt(1000)<20+loopCounter/1500){
                     asteroids.add(addRandomAstroid());
                 }
 
@@ -148,7 +148,7 @@ public class Game {
         ySpeed += rand.nextInt(5)/10.0;
 
         //Here you can adjust start speed of atroids by changing one variable
-        double adjustSpeed = 0.65;
+        double adjustSpeed = 0.8;
         xSpeed *= adjustSpeed;
         ySpeed *= adjustSpeed;
 

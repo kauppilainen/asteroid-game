@@ -39,12 +39,7 @@ public class PlayerObject extends MovingObject {
             }
 
         }
-//        for(Asteroid asteroid:asteroids){
-//            if (asteroid.getxPos() == this.xPos && asteroid.getyPos()==this.yPos ||asteroid.getxPos()+1 == this.xPos && asteroid.getyPos() == this.yPos){
-//                lives--;
-//                System.out.println(lives);
-//            }
-//        }
+
         if(lives <= 0){
             return true;
         }
