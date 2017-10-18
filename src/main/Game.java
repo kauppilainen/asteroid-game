@@ -5,10 +5,7 @@ import com.googlecode.lanterna.terminal.Terminal;
 import com.googlecode.lanterna.input.Key;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class Game {
@@ -47,8 +44,8 @@ public class Game {
                 input(key);                 // Send key to input where the input is dealt with
             }
 
-            player.update();
-            asteroid.update();
+            player.updatePosition();
+            asteroid.updatePosition();
 
             render.drawAsteroid(asteroid);
             render.drawPlayer(player); // Send player info to the render method drawPlayer to be drawn
@@ -56,7 +53,7 @@ public class Game {
             for(int i = projectileSize - 1; i >= 0; i--) {
                 int x = projectiles.get(i).getxPos();
                 int y = projectiles.get(i).getyPos();
-                projectiles.get(i).setPosition(x, y);
+                projectiles.get(i).updatePosition();
 
                 // Remove projectile if hits edge of screen
                 if(x < 0 || x > 100 || y < 0 || y > 30) {
