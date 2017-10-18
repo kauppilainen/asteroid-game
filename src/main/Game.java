@@ -15,6 +15,7 @@ public class Game {
     private Terminal terminal;
     private PlayerObject player;
     private List<Projectile> projectiles;
+    private List<Asteroid> asteroids;
     private Key key;
     private Render render;
 
@@ -27,6 +28,7 @@ public class Game {
         render = new Render(terminal); // Create new Render object with terminal as parameter
 
         projectiles = new ArrayList<>();
+        asteroids = new ArrayList<>();
 
 
     }
@@ -35,7 +37,13 @@ public class Game {
         this.player = new PlayerObject(50, 15); // Create new player object
         terminal.enterPrivateMode();        // Method to create window
         terminal.setCursorVisible(false);   // Makes cursor invisible
-        Asteroid asteroid = new Asteroid(10,1,0.05,0.1);
+        asteroids.add(new Asteroid(20,1,0.05,0.1));
+        asteroids.add(new Asteroid(60,1,0.01,0.1));
+        asteroids.add(new Asteroid(40,30,-0.02,0.2));
+        asteroids.add(new Asteroid(80,30,-0.01,0.6));
+        asteroids.add(new Asteroid(0,10,0.001,0.1));
+        asteroids.add(new Asteroid(30,30,-0.03,-0.3));
+
 
         while (true) {
 
@@ -45,10 +53,20 @@ public class Game {
             }
 
             player.updatePosition();
-            asteroid.updatePosition();
 
-            render.drawAsteroid(asteroid);
+            for (int i = asteroids.size()-1; i >= 0 ; i--) {
+                asteroids.get(i).updatePosition();
+                if(asteroids.get(i).hitByProjectile(projectiles)){
+                    asteroids.remove(i);
+                }
+            }
+
+            for (Asteroid a:asteroids){
+                render.drawAsteroid(a);
+            }
+
             render.drawPlayer(player); // Send player info to the render method drawPlayer to be drawn
+
             int projectileSize = projectiles.size();
             for(int i = projectileSize - 1; i >= 0; i--) {
                 int x = projectiles.get(i).getxPos();

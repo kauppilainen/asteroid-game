@@ -113,4 +113,5 @@ public class PlayerObject extends MovingObject {
             this.yPosDouble = this.yPos;
         }
     }
-}
+
+}//end of class
