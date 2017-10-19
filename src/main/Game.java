@@ -51,9 +51,6 @@ public class Game {
 
         player = new Player(50, 15); // Create new player object
 
-        //TODO REMOVE
-        aliens.add(new Alien(10, 10, player));  // Create new alien object in alien array
-
         while (true) {
 
 
