@@ -1,8 +1,8 @@
 package main;
 
 import com.googlecode.lanterna.TerminalFacade;
-import com.googlecode.lanterna.terminal.Terminal;
 import com.googlecode.lanterna.input.Key;
+import com.googlecode.lanterna.terminal.Terminal;
 import java.util.ArrayList;
 import java.util.List;
 import java.nio.charset.Charset;
@@ -11,7 +11,6 @@ import java.util.Random;
 
 public class Game {
 
-
     // Declare variables
     private Terminal terminal;
     private Player player;
@@ -19,6 +18,7 @@ public class Game {
     private List<Projectile> projectiles;
     private List<Asteroid> asteroids;
     private Key key;
+    private Key key2;
     private Render render;
     private int points;
     private Random rand;
@@ -45,16 +45,14 @@ public class Game {
 
     }
 
-    public void run() throws InterruptedException {  // Method to run your game
+    public boolean run() throws InterruptedException {  // Method to run your game
         terminal.enterPrivateMode();        // Method to create window
         terminal.setCursorVisible(false);   // Makes cursor invisible
 
         player = new Player(50, 15); // Create new player object
 
-
         //TODO REMOVE
         aliens.add(new Alien(10, 10, player));  // Create new alien object in alien array
-        asteroids.add(new Asteroid(50, 5, 0, 0)); // TEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEST
 
         while (true) {
 
@@ -78,14 +76,17 @@ public class Game {
                 if(rand.nextInt(1000) < 2 && PowerUp.getNumberOfPowerups() < 3){
                     asteroids.add(new PowerUp(rand.nextInt(100),0,0,0.1));
                     PowerUp.setNumberOfPowerups(1);
+
                 }
             }
             System.out.println(PowerUp.getNumberOfPowerups());
 
             //cooldown for player gun
-            if(coolDown){
+            if (coolDown) {
                 coolDownCounter++;
+
                 if(coolDownCounter > 7){
+
                     coolDown = false;
                     coolDownCounter = 0;
                 }
@@ -93,8 +94,9 @@ public class Game {
 
 
 
-            key = terminal.readInput();    // Get key input
-            if(key != null) {                // If a key press has happened
+            key = terminal.readInput();     // Get key input
+            if (key != null) {                // If a key press has happened
+
                 input(key);
             }
 
@@ -103,7 +105,9 @@ public class Game {
 
             updateAliens();
 
+
             if (player.isDead(asteroids, aliens, render)){ // Check if dead before updating projectiles and asteroids
+
                 break;
             }
 
@@ -114,14 +118,15 @@ public class Game {
             render.drawPlayer(player);
 
             for(Alien alien : aliens) {
+
                 render.drawAlien(alien);
             }
 
-            for(Projectile p: projectiles){
+            for (Projectile p : projectiles) {
                 render.drawProjectile(p); // Draw projectile
             }
 
-            for (Asteroid a:asteroids){
+            for (Asteroid a : asteroids) {
                 render.drawAsteroid(a);
             }
 
@@ -133,7 +138,38 @@ public class Game {
 
         System.out.println("Utanför loop!!");
         render.printGameOver(points);
+
+        while (key == null) {
+            // Read input
+
+            Key key2 = terminal.readInput();
+            // om key2 är null
+            if (key2 != null) {
+                switch (key2.getKind()) {
+                    case Enter:
+                        terminal.exitPrivateMode();
+                        return true;
+//                        break;
+                    case Escape:
+                        System.out.println("ESC??");
+                        terminal.exitPrivateMode();
+                        return false;
+//                        break;
+                }
+            }
+
+        }
+        return false;
     }
+
+
+
+
+
+
+
+
+
 
     private void updateAliens(){
         for(int i = aliens.size() - 1; i >= 0; i--) {

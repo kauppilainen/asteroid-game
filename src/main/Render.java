@@ -123,15 +123,24 @@ public class Render {
 
     public void printGameOver (int points){
         terminal.clearScreen();
+        char choice;
         String gameOver = "Game Over!";
-        String pointString = "Points: " + points;
-        terminal.moveCursor(45, 10);
-        for(int i = 0; i < gameOver.length(); i++) {
+
+        String pointString ="Points: "+points;
+        String playAgain = "Press \"Enter\" to play again, ESC to quit";
+        terminal.moveCursor(45,10);
+        for (int i = 0; i < gameOver.length() ; i++) {
+
             terminal.putCharacter(gameOver.charAt(i));
         }
         terminal.moveCursor(45, 12);
         for(int i = 0; i < pointString.length(); i++) {
             terminal.putCharacter(pointString.charAt(i));
+        }
+
+        terminal.moveCursor(32,14);
+        for (int i = 0; i < playAgain.length() ; i++) {
+            terminal.putCharacter(playAgain.charAt(i));
         }
     }
 

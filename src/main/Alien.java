@@ -16,8 +16,8 @@ public class Alien extends Enemy {
         this.xSpeed = 0;
         this.ySpeed = 0;
         setSymbol('\u2B24');
-        maxSpeed = 0.1;
-        minSpeed = -0.1;
+        maxSpeed = 0.2;
+        minSpeed = -0.2;
     }
 
     @Override

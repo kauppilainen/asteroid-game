@@ -27,7 +27,7 @@ public class Player extends MovingObject {
         maxSpeed = 0.2;
         minSpeed = -0.2;
 
-        this.lives = 3;
+        this.lives = 1;
     }
 
     public boolean isDead(List<Asteroid> asteroids, List<Alien> aliens,
