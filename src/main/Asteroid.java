@@ -24,7 +24,7 @@ public class Asteroid extends MovingObject {
 
     }
 
-    private void setBigOrSmall() {
+    protected void setBigOrSmall() {
         double rand = Math.random();
         if(rand <= 0.5) {
             size = small;

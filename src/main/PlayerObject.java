@@ -35,11 +35,17 @@ public class PlayerObject extends MovingObject {
 
         for(int i = asteroids.size() - 1; i >= 0; i--) { // If asteroid has hit player
             Asteroid asteroid = asteroids.get(i);
+
             if(asteroid.size == Asteroid.small){
                 if(asteroid.getxPos() == this.xPos && asteroid.getyPos() == this.yPos ||
                    asteroid.getxPos() + 1 == this.xPos && asteroid.getyPos() == this.yPos) {
-
-                    lives--;
+                    if (asteroid instanceof PowerUpp ){
+                        lives++;
+                        ((PowerUpp) asteroid).setNumberOfPowerups(-1);
+                    }
+                    else{
+                        lives--;
+                    }
                     render.drawAsteroidExplosion(asteroids.get(i));
                     asteroids.remove(i);
                 }
@@ -59,7 +65,6 @@ public class PlayerObject extends MovingObject {
                     asteroids.remove(i);
                 }
             }
-
         }
 
         // OBS! FILOSOFISKT SETT BORDE INTE ALIEN TAS BORT HÄR UTAN I SIN EGEN KLASS

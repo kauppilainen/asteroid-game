@@ -42,14 +42,28 @@ public class Render {
         terminal.applyForegroundColor(Terminal.Color.DEFAULT);
     }
 
+//<<<<<<< HEAD
+//    public void drawAsteroid(Asteroid asteroid){ // Method to draw player position
+//        terminal.applyBackgroundColor(150,150,150);
+//        if(asteroid instanceof PowerUpp){
+//            terminal.applyBackgroundColor(50,50,250);
+//        }
+//
+//        terminal.moveCursor(asteroid.getxPos(),asteroid.getyPos()); // Move cursor to player position
+//=======
     public void drawAsteroid(Asteroid asteroid) { // Method to draw player position
         terminal.applyBackgroundColor(150, 150, 150);
+        if(asteroid instanceof PowerUpp){
+            terminal.applyBackgroundColor(50,50,250);
+            terminal.applyForegroundColor(Terminal.Color.MAGENTA);
+        }
         if(asteroid.size == Asteroid.small) {
             drawSmallAsteroid(asteroid);
         } else if(asteroid.size == Asteroid.big) {
             drawBigAsteroid(asteroid);
         }
         terminal.applyBackgroundColor(Terminal.Color.DEFAULT);
+        terminal.applyForegroundColor(Terminal.Color.DEFAULT);
     }
 
     private void drawSmallAsteroid(Asteroid asteroid) {
