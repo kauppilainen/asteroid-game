@@ -50,6 +50,7 @@ public class Game {
         terminal.setCursorVisible(false);   // Makes cursor invisible
 
         player = new Player(50, 15); // Create new player object
+        render.startScreen();
 
         while (true) {
 

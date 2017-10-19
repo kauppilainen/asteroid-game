@@ -144,5 +144,25 @@ public class Render {
         }
     }
 
+    public void startScreen() throws InterruptedException{
+        String start = "Flappy Asteroids";
+        terminal.moveCursor(42,10);
+        for (int i = 0; i < start.length() ; i++) {
+            terminal.putCharacter(start.charAt(i));
+        }
+        terminal.moveCursor(0,12);
+        for (int x = 0; x < 100 ; x++) {
+            terminal.applyBackgroundColor(Terminal.Color.GREEN);
+            terminal.putCharacter(' ');
+        }
+        terminal.moveCursor(0,14);
+        for (int x = 0; x < 100 ; x++) {
+            terminal.putCharacter(' ');
+        }
+        terminal.applyBackgroundColor(Terminal.Color.DEFAULT);
+        Thread.sleep(3000);
+
+    }
+
 
 }//end of class
