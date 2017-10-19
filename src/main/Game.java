@@ -11,7 +11,6 @@ import java.util.Random;
 
 public class Game {
 
-
     // Declare variables
     private Terminal terminal;
     private Player player;
@@ -51,8 +50,6 @@ public class Game {
 
         player = new Player(50, 15); // Create new player object
         aliens.add(new Alien(10, 10, player));  // Create new alien object in alien array
-
-        asteroids.add(new Asteroid(50, 5, 0, 0)); // TEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEST
 
         while (true) {
 
