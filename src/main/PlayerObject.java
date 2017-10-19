@@ -48,6 +48,7 @@ public class PlayerObject extends MovingObject {
             AlienObject alien = aliens.get(i);
             if(alien.getxPos() == this.xPos && alien.getyPos() == this.yPos){
                 lives--;
+                render.drawAlienExplosion(aliens.get(i));
                 aliens.remove(i);
             }
         }
