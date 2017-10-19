@@ -14,8 +14,8 @@ public class Game {
 
     // Declare variables
     private Terminal terminal;
-    private PlayerObject player;
-    private List<AlienObject> aliens;
+    private Player player;
+    private List<Alien> aliens;
     private List<Projectile> projectiles;
     private List<Asteroid> asteroids;
     private Key key;
@@ -49,8 +49,8 @@ public class Game {
         terminal.enterPrivateMode();        // Method to create window
         terminal.setCursorVisible(false);   // Makes cursor invisible
 
-        player = new PlayerObject(50, 15); // Create new player object
-        aliens.add(new AlienObject(10, 10, player));  // Create new alien object in alien array
+        player = new Player(50, 15); // Create new player object
+        aliens.add(new Alien(10, 10, player));  // Create new alien object in alien array
 
         asteroids.add(new Asteroid(50, 5, 0, 0)); // TEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEST
 
@@ -65,20 +65,20 @@ public class Game {
             // introduction of aliens delayed 1500 frames ~ 30s? enters randomly from right or left
             if(loopCounter > 1500){
                 if(rand.nextInt(1000)<1){
-                    aliens.add(new AlienObject(0,rand.nextInt(30),player));
+                    aliens.add(new Alien(0,rand.nextInt(30),player));
                 }
                 else if(rand.nextInt(1000)<2){
-                    aliens.add(new AlienObject(100,rand.nextInt(30),player));
+                    aliens.add(new Alien(100,rand.nextInt(30),player));
                 }
             }
             //add Powerups
-            if(player.getLives()+PowerUpp.getNumberOfPowerups() < 3){
-                if(rand.nextInt(1000) < 2 && PowerUpp.getNumberOfPowerups() < 3){
-                    asteroids.add(new PowerUpp(rand.nextInt(100),0,0,0.1));
-                    PowerUpp.setNumberOfPowerups(1);
+            if(player.getLives()+ PowerUp.getNumberOfPowerups() < 3){
+                if(rand.nextInt(1000) < 2 && PowerUp.getNumberOfPowerups() < 3){
+                    asteroids.add(new PowerUp(rand.nextInt(100),0,0,0.1));
+                    PowerUp.setNumberOfPowerups(1);
                 }
             }
-            System.out.println(PowerUpp.getNumberOfPowerups());
+            System.out.println(PowerUp.getNumberOfPowerups());
 
             //cooldown for player gun
             if(coolDown){
@@ -119,7 +119,7 @@ public class Game {
             // Render objects
             render.drawPlayer(player);
 
-            for(AlienObject alien : aliens) {
+            for(Alien alien : aliens) {
                 render.drawAlien(alien);
             }
 
@@ -157,8 +157,8 @@ public class Game {
             asteroids.get(i).updatePosition();
             if(asteroids.get(i).hitByProjectile(projectiles)){
                 render.drawAsteroidExplosion(asteroids.get(i));
-                if(asteroids.get(i) instanceof PowerUpp){
-                    PowerUpp.setNumberOfPowerups(-1);
+                if(asteroids.get(i) instanceof PowerUp){
+                    PowerUp.setNumberOfPowerups(-1);
                 }
                 asteroids.remove(i);
                 points++;

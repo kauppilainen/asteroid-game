@@ -3,7 +3,7 @@ package main;
 import java.util.List;
 
 
-public class PlayerObject extends MovingObject {
+public class Player extends MovingObject {
     // Declare variables
     private int lives;
 
@@ -13,7 +13,7 @@ public class PlayerObject extends MovingObject {
     //Höger: '\u25B6'
 
 
-    public PlayerObject(int xPos, int yPos) {
+    public Player(int xPos, int yPos) {
         // Initialize our variables
         this.xPos = xPos; // Set instance variable xPos to xPos from in parameter
         this.yPos = yPos; // Set instance variable yPos to yPos from in parameter
@@ -30,7 +30,7 @@ public class PlayerObject extends MovingObject {
         this.lives = 3;
     }
 
-    public boolean isDead(List<Asteroid> asteroids, List<AlienObject> aliens,
+    public boolean isDead(List<Asteroid> asteroids, List<Alien> aliens,
                           Render render) throws InterruptedException {
 
         for(int i = asteroids.size() - 1; i >= 0; i--) { // If asteroid has hit player
@@ -39,9 +39,9 @@ public class PlayerObject extends MovingObject {
             if(asteroid.size == Asteroid.small){
                 if(asteroid.getxPos() == this.xPos && asteroid.getyPos() == this.yPos ||
                    asteroid.getxPos() + 1 == this.xPos && asteroid.getyPos() == this.yPos) {
-                    if (asteroid instanceof PowerUpp ){
+                    if (asteroid instanceof PowerUp){
                         lives++;
-                        ((PowerUpp) asteroid).setNumberOfPowerups(-1);
+                        ((PowerUp) asteroid).setNumberOfPowerups(-1);
                     }
                     else{
                         lives--;
@@ -69,7 +69,7 @@ public class PlayerObject extends MovingObject {
 
         // OBS! FILOSOFISKT SETT BORDE INTE ALIEN TAS BORT HÄR UTAN I SIN EGEN KLASS
         for(int i = aliens.size() - 1; i >= 0; i--) {
-            AlienObject alien = aliens.get(i);
+            Alien alien = aliens.get(i);
             if(alien.getxPos() == this.xPos && alien.getyPos() == this.yPos){
                 lives--;
                 render.drawAlienExplosion(aliens.get(i));
