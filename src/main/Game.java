@@ -23,6 +23,8 @@ public class Game {
     private int points;
     private Random rand;
     private long loopCounter;
+    private boolean coolDown; //stop player from firing to often
+    private long coolDownCounter;
 
 
     public Game() { // Constructor
@@ -38,6 +40,7 @@ public class Game {
         points = 0;
         rand = new Random();
         loopCounter = 0;
+        coolDown = false;
     }
 
     public void run() throws InterruptedException {  // Method to run your game
@@ -49,6 +52,7 @@ public class Game {
 
         while (true) {
 
+            //add enemies
             if(rand.nextInt(1000)<12+loopCounter/1500){ // Create asteroid
                 asteroids.add(addRandomAsteroid());
             }
@@ -59,6 +63,17 @@ public class Game {
                 }
                 else if(rand.nextInt(1000)<2){
                     aliens.add(new AlienObject(100,rand.nextInt(30),player));
+                }
+            }
+
+            //cooldown for player gun
+            if(coolDown){
+                coolDownCounter++;
+                if(coolDownCounter > 8){
+                    coolDown = false;
+                    coolDownCounter = 0;
+//                    System.out.println(coolDownCounter);
+//                    System.out.println(coolDown);
                 }
             }
 
@@ -126,6 +141,7 @@ public class Game {
             }
         }
     }
+
     private void updateAsteriods() {
         for (int i = asteroids.size()-1; i >= 0 ; i--) { // Update asteroids
             asteroids.get(i).updatePosition();
@@ -166,9 +182,13 @@ public class Game {
                 player.setDirection(1);//turn right
                 break;
             case Tab:
-                System.out.println("Tab");
+                //System.out.println("Tab");
             // player.shootLazer(projectiles);// Create and add projectile to projectile list
-                projectiles.add(new Projectile(player)); // Create and add projectile to projectile list
+                if (!coolDown){
+                    projectiles.add(new Projectile(player)); // Create and add projectile to projectile list
+                    coolDown = true;
+                    System.out.println(coolDown);
+                }
             break;
         }
     }
