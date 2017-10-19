@@ -35,12 +35,31 @@ public class PlayerObject extends MovingObject {
 
         for(int i = asteroids.size() - 1; i >= 0; i--) { // If asteroid has hit player
             Asteroid asteroid = asteroids.get(i);
-            if(asteroid.getxPos() == this.xPos && asteroid.getyPos() == this.yPos ||
-               asteroid.getxPos() + 1 == this.xPos && asteroid.getyPos() == this.yPos) { // If same position
-                lives--;
-                render.drawAsteroidExplosion(asteroids.get(i));
-                asteroids.remove(i);
+            if(asteroid.size == Asteroid.small){
+                if(asteroid.getxPos() == this.xPos && asteroid.getyPos() == this.yPos ||
+                   asteroid.getxPos() + 1 == this.xPos && asteroid.getyPos() == this.yPos) {
+
+                    lives--;
+                    render.drawAsteroidExplosion(asteroids.get(i));
+                    asteroids.remove(i);
+                }
             }
+
+            if(asteroid.size == Asteroid.big){
+                if(asteroids.get(i).getxPos()     == this.getxPos() && asteroids.get(i).getyPos() == this.getyPos() ||
+                   asteroids.get(i).getxPos() + 1 == this.getxPos() && asteroids.get(i).getyPos() == this.getyPos() ||
+                   asteroids.get(i).getxPos() + 2 == this.getxPos() && asteroids.get(i).getyPos() == this.getyPos() ||
+                   asteroids.get(i).getxPos() + 3 == this.getxPos() && asteroids.get(i).getyPos() == this.getyPos() ||
+                   asteroids.get(i).getxPos()     == this.getxPos() && asteroids.get(i).getyPos() + 1 == this.getyPos() ||
+                   asteroids.get(i).getxPos() + 1 == this.getxPos() && asteroids.get(i).getyPos() + 1 == this.getyPos() ||
+                   asteroids.get(i).getxPos() + 2 == this.getxPos() && asteroids.get(i).getyPos() + 1 == this.getyPos() ||
+                   asteroids.get(i).getxPos() + 3 == this.getxPos() && asteroids.get(i).getyPos() + 1 == this.getyPos()) {
+                    lives--;
+                    render.drawAsteroidExplosion(asteroids.get(i));
+                    asteroids.remove(i);
+                }
+            }
+
         }
 
         // OBS! FILOSOFISKT SETT BORDE INTE ALIEN TAS BORT HÄR UTAN I SIN EGEN KLASS

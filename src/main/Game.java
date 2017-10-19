@@ -50,6 +50,8 @@ public class Game {
         player = new PlayerObject(50, 15); // Create new player object
         aliens.add(new AlienObject(10, 10, player));  // Create new alien object in alien array
 
+        asteroids.add(new Asteroid(50, 5, 0, 0)); // TEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEST
+
         while (true) {
 
 
