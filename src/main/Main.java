@@ -2,8 +2,6 @@ package main;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException{
-
-
         boolean playAgain = true;           // Call run method from your game object
 
         do {
@@ -11,9 +9,6 @@ public class Main {
             if(game.run() == false){
                 System.exit(0);
             }
-
         } while (playAgain);
-
-
     }
 }
