@@ -7,6 +7,12 @@ public class PowerUpp extends Asteroid {
     public PowerUpp(int xPos, int yPos, double xSpeed, double ySpeed) {
         super(xPos, yPos, xSpeed, ySpeed);
         setSymbol('❤');
+        setBigOrSmall();
+    }
+
+    @Override
+    protected void setBigOrSmall() {
+        size = small;
     }
 
     public static int getNumberOfPowerups() {

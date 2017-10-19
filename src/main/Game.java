@@ -54,11 +54,13 @@ public class Game {
 
         while (true) {
 
-            //add enemies
+
+            //add asteroid
             if(rand.nextInt(1000)<12+loopCounter/1500){ // Create asteroid
                 asteroids.add(addRandomAsteroid());
             }
-            //introduction of aliens delayed 1500 frames ~ 30s? enters randomly from right or left
+
+            // introduction of aliens delayed 1500 frames ~ 30s? enters randomly from right or left
             if(loopCounter > 1500){
                 if(rand.nextInt(1000)<1){
                     aliens.add(new AlienObject(0,rand.nextInt(30),player));
@@ -68,8 +70,8 @@ public class Game {
                 }
             }
             //add Powerups
-            if(player.getLives() < 3){
-                if(rand.nextInt(1000) < 1 && PowerUpp.getNumberOfPowerups() < 3){
+            if(player.getLives()+PowerUpp.getNumberOfPowerups() < 3){
+                if(rand.nextInt(1000) < 800 && PowerUpp.getNumberOfPowerups() < 3){
                     asteroids.add(new PowerUpp(rand.nextInt(100),0,0,0.2));
                     PowerUpp.setNumberOfPowerups(1);
 
@@ -98,13 +100,7 @@ public class Game {
             // Update object positions
             player.updatePosition();
 
-//            for(int i = 0; i < aliens.size(); i++) {
-//                aliens.get(i).updatePosition();
-//            }
             updateAliens();
-
-
-             //alien.shootLazer(projectiles);                VART OCH NÄR SKA DENNA AVFYRAS?
 
             if (player.isDead(asteroids, aliens, render)){ // Check if dead before updating projectiles and asteroids
                 break;
@@ -121,6 +117,7 @@ public class Game {
 
             // Render objects
             render.drawPlayer(player);
+
             for(AlienObject alien : aliens) {
                 render.drawAlien(alien);
             }
@@ -224,14 +221,12 @@ public class Game {
         xSpeed += rand.nextInt(5)/10.0;
         ySpeed += rand.nextInt(5)/10.0;
 
-        //Here you can adjust start speed of atroids by changing one variable
+        //Here you can adjust start speed of atsteroids by changing one variable
         double adjustSpeed = 0.8;
         xSpeed *= adjustSpeed;
         ySpeed *= adjustSpeed;
 
-
         return new Asteroid(x,y,xSpeed,ySpeed);
-
     }
 
 
