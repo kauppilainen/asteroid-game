@@ -1,7 +1,6 @@
 package main;
 
 import java.util.List;
-import java.util.Random;
 
 public class Asteroid extends MovingObject {
     static final int small = 0;
