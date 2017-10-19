@@ -2,27 +2,27 @@ package main;
 
 import java.util.List;
 
-public abstract class EnemyObject extends MovingObject{
+public abstract class Enemy extends MovingObject{
 
     //Här deklarerar vi de variabler som vi kommer att ha i Alienobjekt.
-    PlayerObject player;
+    Player player;
     int playerXPos;
     int playerYPos;
 
     int lives = 1;
 
-    //Skapa en konstruktor för EnemyObject
-    public EnemyObject(PlayerObject player) {
+    //Skapa en konstruktor för Enemy
+    public Enemy(Player player) {
         this.player = player;
     }
 
     //Vi behöver en metod som söker upp Playerobjekt.
-    public void searchForPlayer(PlayerObject player) {
+    public void searchForPlayer(Player player) {
         playerXPos = player.getxPos();
         playerYPos = player.getyPos();
     }
 
-    public void updateDirection(PlayerObject player){
+    public void updateDirection(Player player){
         int diffX, diffY;
         //diffX = playerXPos > xPos;
         if (playerXPos > xPos) {

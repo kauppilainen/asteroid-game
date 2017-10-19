@@ -15,7 +15,7 @@ public class Render {
         this.terminal = terminal; // Set terminal variable to terminal from in parameter
     }
 
-    public void drawPlayer(PlayerObject player) { // Method to draw player position
+    public void drawPlayer(Player player) { // Method to draw player position
         if(player.getLives() == 2) {
             terminal.applyForegroundColor(Terminal.Color.YELLOW);
         } else if(player.getLives() == 1) {
@@ -27,7 +27,7 @@ public class Render {
         terminal.putCharacter(player.getSymbol()); // Puts character on screen
     }
 
-    public void drawAlien(AlienObject alien) { // Method to draw alien position
+    public void drawAlien(Alien alien) { // Method to draw alien position
         terminal.applyForegroundColor(Terminal.Color.GREEN); // Set so alien don't get same color as player
         terminal.moveCursor(alien.getxPos(), alien.getyPos()); // Move cursor to alien position
         terminal.putCharacter(alien.getSymbol()); // Puts character on screen
@@ -41,9 +41,10 @@ public class Render {
         terminal.applyForegroundColor(Terminal.Color.DEFAULT);
     }
 
+
     public void drawAsteroid(Asteroid asteroid) { // Method to draw player position
         terminal.applyBackgroundColor(150, 150, 150);
-        if(asteroid instanceof PowerUpp){
+        if(asteroid instanceof PowerUp){
             terminal.applyBackgroundColor(50,50,250);
             terminal.applyForegroundColor(Terminal.Color.MAGENTA);
         }
@@ -106,12 +107,12 @@ public class Render {
     }
 
 
-    public void drawAlienExplosion(AlienObject alienObject){
+    public void drawAlienExplosion(Alien alien){
         terminal.applyBackgroundColor(0,102,0);
         terminal.applyForegroundColor(0,204,0);
 
-        for (int x = alienObject.getxPos()-1; x < alienObject.getxPos()+2 ; x++) {
-            for (int y = alienObject.getyPos()-1; y < alienObject.getyPos()+2 ; y++) {
+        for (int x = alien.getxPos()-1; x < alien.getxPos()+2 ; x++) {
+            for (int y = alien.getyPos()-1; y < alien.getyPos()+2 ; y++) {
                 terminal.moveCursor(x,y);
                 terminal.putCharacter('\u2593');
             }
