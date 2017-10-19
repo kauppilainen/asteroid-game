@@ -1,7 +1,7 @@
 package main;
 
 import java.util.List;
-import java.util.Random;
+
 
 public class AlienObject extends EnemyObject {
 
