@@ -52,6 +52,8 @@ public class Game {
         player = new PlayerObject(50, 15); // Create new player object
         aliens.add(new AlienObject(10, 10, player));  // Create new alien object in alien array
 
+        asteroids.add(new Asteroid(50, 5, 0, 0)); // TEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEST
+
         while (true) {
 
 
@@ -71,8 +73,8 @@ public class Game {
             }
             //add Powerups
             if(player.getLives()+PowerUpp.getNumberOfPowerups() < 3){
-                if(rand.nextInt(1000) < 800 && PowerUpp.getNumberOfPowerups() < 3){
-                    asteroids.add(new PowerUpp(rand.nextInt(100),0,0,0.2));
+                if(rand.nextInt(1000) < 2 && PowerUpp.getNumberOfPowerups() < 3){
+                    asteroids.add(new PowerUpp(rand.nextInt(100),0,0,0.1));
                     PowerUpp.setNumberOfPowerups(1);
                 }
             }

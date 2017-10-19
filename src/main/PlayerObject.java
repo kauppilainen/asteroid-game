@@ -35,18 +35,35 @@ public class PlayerObject extends MovingObject {
 
         for(int i = asteroids.size() - 1; i >= 0; i--) { // If asteroid has hit player
             Asteroid asteroid = asteroids.get(i);
-            if(asteroid.getxPos() == this.xPos && asteroid.getyPos() == this.yPos ||
-               asteroid.getxPos() + 1 == this.xPos && asteroid.getyPos() == this.yPos) { // If same position
-               if (asteroid instanceof PowerUpp ){
-                   lives++;
-                   ((PowerUpp) asteroid).setNumberOfPowerups(-1);
-               }
-               else{
-                   lives--;
-               }
 
-                render.drawAsteroidExplosion(asteroids.get(i));
-                asteroids.remove(i);
+            if(asteroid.size == Asteroid.small){
+                if(asteroid.getxPos() == this.xPos && asteroid.getyPos() == this.yPos ||
+                   asteroid.getxPos() + 1 == this.xPos && asteroid.getyPos() == this.yPos) {
+                    if (asteroid instanceof PowerUpp ){
+                        lives++;
+                        ((PowerUpp) asteroid).setNumberOfPowerups(-1);
+                    }
+                    else{
+                        lives--;
+                    }
+                    render.drawAsteroidExplosion(asteroids.get(i));
+                    asteroids.remove(i);
+                }
+            }
+
+            if(asteroid.size == Asteroid.big){
+                if(asteroids.get(i).getxPos()     == this.getxPos() && asteroids.get(i).getyPos() == this.getyPos() ||
+                   asteroids.get(i).getxPos() + 1 == this.getxPos() && asteroids.get(i).getyPos() == this.getyPos() ||
+                   asteroids.get(i).getxPos() + 2 == this.getxPos() && asteroids.get(i).getyPos() == this.getyPos() ||
+                   asteroids.get(i).getxPos() + 3 == this.getxPos() && asteroids.get(i).getyPos() == this.getyPos() ||
+                   asteroids.get(i).getxPos()     == this.getxPos() && asteroids.get(i).getyPos() + 1 == this.getyPos() ||
+                   asteroids.get(i).getxPos() + 1 == this.getxPos() && asteroids.get(i).getyPos() + 1 == this.getyPos() ||
+                   asteroids.get(i).getxPos() + 2 == this.getxPos() && asteroids.get(i).getyPos() + 1 == this.getyPos() ||
+                   asteroids.get(i).getxPos() + 3 == this.getxPos() && asteroids.get(i).getyPos() + 1 == this.getyPos()) {
+                    lives--;
+                    render.drawAsteroidExplosion(asteroids.get(i));
+                    asteroids.remove(i);
+                }
             }
         }
 
