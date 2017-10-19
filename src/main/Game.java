@@ -85,7 +85,7 @@ public class Game {
             //cooldown for player gun
             if(coolDown){
                 coolDownCounter++;
-                if(coolDownCounter > 8){
+                if(coolDownCounter > 6){
                     coolDown = false;
                     coolDownCounter = 0;
                 }
