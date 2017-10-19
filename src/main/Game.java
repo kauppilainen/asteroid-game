@@ -49,6 +49,8 @@ public class Game {
         terminal.setCursorVisible(false);   // Makes cursor invisible
 
         player = new Player(50, 15); // Create new player object
+
+        //TODO REMOVE
         aliens.add(new Alien(10, 10, player));  // Create new alien object in alien array
 
         while (true) {
@@ -83,14 +85,12 @@ public class Game {
                 if(coolDownCounter > 8){
                     coolDown = false;
                     coolDownCounter = 0;
-//                    System.out.println(coolDownCounter);
-//                    System.out.println(coolDown);
                 }
             }
 
 
 
-            key = terminal.readInput();     // Get key input
+            key = terminal.readInput();    // Get key input
             if(key != null) {                // If a key press has happened
                 input(key);
             }
@@ -103,12 +103,6 @@ public class Game {
             if (player.isDead(asteroids, aliens, render)){ // Check if dead before updating projectiles and asteroids
                 break;
             }
-
-//            for(int i = aliens.size(); i >= 0; i--) {
-//                if(aliens.get(i).isDead(projectiles, render)){
-//                    points++;
-//                }
-//            }
 
             updateProjectiles();
             updateAsteriods();

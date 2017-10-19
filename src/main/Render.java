@@ -41,15 +41,7 @@ public class Render {
         terminal.applyForegroundColor(Terminal.Color.DEFAULT);
     }
 
-//<<<<<<< HEAD
-//    public void drawAsteroid(Asteroid asteroid){ // Method to draw player position
-//        terminal.applyBackgroundColor(150,150,150);
-//        if(asteroid instanceof PowerUp){
-//            terminal.applyBackgroundColor(50,50,250);
-//        }
-//
-//        terminal.moveCursor(asteroid.getxPos(),asteroid.getyPos()); // Move cursor to player position
-//=======
+
     public void drawAsteroid(Asteroid asteroid) { // Method to draw player position
         terminal.applyBackgroundColor(150, 150, 150);
         if(asteroid instanceof PowerUp){
@@ -141,8 +133,6 @@ public class Render {
         for(int i = 0; i < pointString.length(); i++) {
             terminal.putCharacter(pointString.charAt(i));
         }
-
-
     }
 
 

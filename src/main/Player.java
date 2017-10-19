@@ -24,8 +24,8 @@ public class Player extends MovingObject {
         this.direction = 0;
         setSymbol(direction);
 
-        maxSpeed = 0.3;
-        minSpeed = -0.3;
+        maxSpeed = 0.2;
+        minSpeed = -0.2;
 
         this.lives = 3;
     }
@@ -85,13 +85,13 @@ public class Player extends MovingObject {
 
     public void moveForward() {
         if(direction == 0) {
-            setySpeed(-0.02);
+            setySpeed(-0.03);
         } else if(direction == 1) {
-            setxSpeed(0.02);
+            setxSpeed(0.1);
         } else if(direction == 2) {
-            setySpeed(0.02);
+            setySpeed(0.03);
         } else if(direction == 3) {
-            setxSpeed(-0.2);
+            setxSpeed(-0.1);
         }
     }
 
