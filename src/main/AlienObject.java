@@ -16,7 +16,7 @@ public class AlienObject extends EnemyObject {
         this.yPosDouble = yPos;
         this.xSpeed = 0;
         this.ySpeed = 0;
-        setSymbol('O');
+        setSymbol('\u2B24');
         maxSpeed = 0.1;
         minSpeed = -0.1;
     }
@@ -59,8 +59,11 @@ public class AlienObject extends EnemyObject {
         return false;
     }
 
+
+
     //Vi behöver en metod som skjuter mot playerobjekt.
     void shootLazer(List<Projectile> projectiles) {
+
         projectiles.add(new Projectile(this)); // Create and add projectile to projectile list
     }
 

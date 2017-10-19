@@ -30,9 +30,10 @@ public class Render {
     }
 
     public void drawAlien(AlienObject alien){ // Method to draw alien position
-        terminal.applyForegroundColor(Terminal.Color.DEFAULT); // Set so alien don't get same color as player
+        terminal.applyForegroundColor(Terminal.Color.GREEN); // Set so alien don't get same color as player
         terminal.moveCursor(alien.getxPos(),alien.getyPos()); // Move cursor to alien position
         terminal.putCharacter(alien.getSymbol()); // Puts character on screen
+        terminal.applyForegroundColor(Terminal.Color.DEFAULT);
     }
 
     public void drawProjectile(Projectile proj) {

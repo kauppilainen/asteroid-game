@@ -52,6 +52,16 @@ public class Game {
             if(rand.nextInt(1000)<12+loopCounter/1500){ // Create asteroid
                 asteroids.add(addRandomAsteroid());
             }
+            //introduction of aliens delayed 1500 frames ~ 30s? enters randomly from right or left
+            if(loopCounter > 1500){
+                if(rand.nextInt(1000)<1){
+                    aliens.add(new AlienObject(0,rand.nextInt(30),player));
+                }
+                else if(rand.nextInt(1000)<2){
+                    aliens.add(new AlienObject(100,rand.nextInt(30),player));
+                }
+            }
+
 
 
             key = terminal.readInput();     // Get key input
@@ -62,11 +72,13 @@ public class Game {
             // Update object positions
             player.updatePosition();
 
-            for(int i = 0; i < aliens.size(); i++) {
-                aliens.get(i).updatePosition();
-            }
+//            for(int i = 0; i < aliens.size(); i++) {
+//                aliens.get(i).updatePosition();
+//            }
+            updateAliens();
 
-            // alien.shootLazer(projectiles);                VART OCH NÄR SKA DENNA AVFYRAS?
+
+             //alien.shootLazer(projectiles);                VART OCH NÄR SKA DENNA AVFYRAS?
 
             if (player.isDead(asteroids, aliens, render)){ // Check if dead before updating projectiles and asteroids
                 break;
@@ -98,7 +110,8 @@ public class Game {
             Thread.sleep(20); // Pause program for 20ms
             terminal.clearScreen();
             loopCounter++;
-        }
+
+        } // end of main loop
 
         System.out.println("Utanför loop!!");
         render.printGameOver(points);
