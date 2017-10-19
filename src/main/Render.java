@@ -46,11 +46,16 @@ public class Render {
 
     public void drawAsteroid(Asteroid asteroid){ // Method to draw player position
         terminal.applyBackgroundColor(150,150,150);
+        if(asteroid instanceof PowerUpp){
+            terminal.applyBackgroundColor(50,50,250);
+        }
+        terminal.applyForegroundColor(Terminal.Color.MAGENTA);
         terminal.moveCursor(asteroid.getxPos(),asteroid.getyPos()); // Move cursor to player position
         terminal.putCharacter(asteroid.getSymbol()); // Puts character on screen
         terminal.moveCursor(asteroid.getxPos()+1,asteroid.getyPos());
         terminal.putCharacter(asteroid.getSymbol());
         terminal.applyBackgroundColor(Terminal.Color.DEFAULT);
+        terminal.applyForegroundColor(Terminal.Color.DEFAULT);
     }
 
     public void drawAsteroidExplosion(Asteroid asteroid){

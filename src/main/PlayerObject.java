@@ -37,7 +37,14 @@ public class PlayerObject extends MovingObject {
             Asteroid asteroid = asteroids.get(i);
             if(asteroid.getxPos() == this.xPos && asteroid.getyPos() == this.yPos ||
                asteroid.getxPos() + 1 == this.xPos && asteroid.getyPos() == this.yPos) { // If same position
-                lives--;
+               if (asteroid instanceof PowerUpp ){
+                   lives++;
+                   ((PowerUpp) asteroid).setNumberOfPowerups(-1);
+               }
+               else{
+                   lives--;
+               }
+
                 render.drawAsteroidExplosion(asteroids.get(i));
                 asteroids.remove(i);
             }

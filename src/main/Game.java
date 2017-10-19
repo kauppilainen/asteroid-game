@@ -27,6 +27,7 @@ public class Game {
     private long coolDownCounter;
 
 
+
     public Game() { // Constructor
         // Initialize our variables
         this.terminal = TerminalFacade.createTerminal(System.in,
@@ -41,6 +42,7 @@ public class Game {
         rand = new Random();
         loopCounter = 0;
         coolDown = false;
+
     }
 
     public void run() throws InterruptedException {  // Method to run your game
@@ -65,6 +67,15 @@ public class Game {
                     aliens.add(new AlienObject(100,rand.nextInt(30),player));
                 }
             }
+            //add Powerups
+            if(player.getLives() < 3){
+                if(rand.nextInt(1000) < 1 && PowerUpp.getNumberOfPowerups() < 3){
+                    asteroids.add(new PowerUpp(rand.nextInt(100),0,0,0.2));
+                    PowerUpp.setNumberOfPowerups(1);
+
+                }
+            }
+            System.out.println(PowerUpp.getNumberOfPowerups());
 
             //cooldown for player gun
             if(coolDown){
@@ -148,6 +159,9 @@ public class Game {
             asteroids.get(i).updatePosition();
             if(asteroids.get(i).hitByProjectile(projectiles)){
                 render.drawAsteroidExplosion(asteroids.get(i));
+                if(asteroids.get(i) instanceof PowerUpp){
+                    PowerUpp.setNumberOfPowerups(-1);
+                }
                 asteroids.remove(i);
                 points++;
             }
@@ -188,7 +202,6 @@ public class Game {
                 if (!coolDown){
                     projectiles.add(new Projectile(player)); // Create and add projectile to projectile list
                     coolDown = true;
-                    System.out.println(coolDown);
                 }
             break;
         }
@@ -220,5 +233,8 @@ public class Game {
         return new Asteroid(x,y,xSpeed,ySpeed);
 
     }
+
+
+
 
 }
