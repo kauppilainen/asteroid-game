@@ -50,11 +50,11 @@ public abstract class MovingObject {
 
     public void setySpeed(double ySpeedChange) {
         this.ySpeed += ySpeedChange;
-        if(this.ySpeed > 0.3){
-            this.ySpeed = 0.3;
+        if(this.ySpeed > maxSpeed){
+            this.ySpeed = maxSpeed;
         }
-        else if(this.ySpeed < -0.3){
-            this.ySpeed = -0.3;
+        else if(this.ySpeed < minSpeed){
+            this.ySpeed = minSpeed;
         }
     }
 
