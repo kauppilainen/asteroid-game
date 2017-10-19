@@ -5,6 +5,7 @@ Render: Ritar ut chars med färger i terminalfönstret.
 */
 
 import com.googlecode.lanterna.terminal.Terminal;
+import javafx.scene.paint.Color;
 
 public class Render {
     // Declare variables
@@ -58,6 +59,20 @@ public class Render {
 
         for (int x = asteroid.getxPos()-1; x < asteroid.getxPos()+2 ; x++) {
             for (int y = asteroid.getyPos()-1; y < asteroid.getyPos()+2 ; y++) {
+                terminal.moveCursor(x,y);
+                terminal.putCharacter('\u2593');
+            }
+        }
+        terminal.applyForegroundColor(Terminal.Color.DEFAULT);
+        terminal.applyBackgroundColor(Terminal.Color.DEFAULT);
+    }
+
+    public void drawAlienExplosion(AlienObject alienObject){
+        terminal.applyBackgroundColor(0,102,0);
+        terminal.applyForegroundColor(0,204,0);
+
+        for (int x = alienObject.getxPos()-1; x < alienObject.getxPos()+2 ; x++) {
+            for (int y = alienObject.getyPos()-1; y < alienObject.getyPos()+2 ; y++) {
                 terminal.moveCursor(x,y);
                 terminal.putCharacter('\u2593');
             }

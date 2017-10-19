@@ -121,6 +121,7 @@ public class Game {
         for(int i = aliens.size() - 1; i >= 0; i--) {
             aliens.get(i).updatePosition();
             if(aliens.get(i).hitByProjectile(projectiles)) {
+                render.drawAlienExplosion(aliens.get(i));
                 aliens.remove(i);
                 points++;
             }
