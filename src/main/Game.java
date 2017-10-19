@@ -1,8 +1,8 @@
 package main;
 
 import com.googlecode.lanterna.TerminalFacade;
-import com.googlecode.lanterna.terminal.Terminal;
 import com.googlecode.lanterna.input.Key;
+import com.googlecode.lanterna.terminal.Terminal;
 import java.util.ArrayList;
 import java.util.List;
 import java.nio.charset.Charset;
@@ -19,6 +19,7 @@ public class Game {
     private List<Projectile> projectiles;
     private List<Asteroid> asteroids;
     private Key key;
+    private Key key2;
     private Render render;
     private int points;
     private Random rand;
@@ -43,7 +44,7 @@ public class Game {
         coolDown = false;
     }
 
-    public void run() throws InterruptedException {  // Method to run your game
+    public boolean run() throws InterruptedException {  // Method to run your game
         terminal.enterPrivateMode();        // Method to create window
         terminal.setCursorVisible(false);   // Makes cursor invisible
 
@@ -53,23 +54,22 @@ public class Game {
         while (true) {
 
             //add enemies
-            if(rand.nextInt(1000)<12+loopCounter/1500){ // Create asteroid
+            if (rand.nextInt(1000) < 12 + loopCounter / 1500) { // Create asteroid
                 asteroids.add(addRandomAsteroid());
             }
             //introduction of aliens delayed 1500 frames ~ 30s? enters randomly from right or left
-            if(loopCounter > 1500){
-                if(rand.nextInt(1000)<1){
-                    aliens.add(new AlienObject(0,rand.nextInt(30),player));
-                }
-                else if(rand.nextInt(1000)<2){
-                    aliens.add(new AlienObject(100,rand.nextInt(30),player));
+            if (loopCounter > 1500) {
+                if (rand.nextInt(1000) < 1) {
+                    aliens.add(new AlienObject(0, rand.nextInt(30), player));
+                } else if (rand.nextInt(1000) < 2) {
+                    aliens.add(new AlienObject(100, rand.nextInt(30), player));
                 }
             }
 
             //cooldown for player gun
-            if(coolDown){
+            if (coolDown) {
                 coolDownCounter++;
-                if(coolDownCounter > 8){
+                if (coolDownCounter > 8) {
                     coolDown = false;
                     coolDownCounter = 0;
 //                    System.out.println(coolDownCounter);
@@ -78,9 +78,8 @@ public class Game {
             }
 
 
-
             key = terminal.readInput();     // Get key input
-            if(key != null) {                // If a key press has happened
+            if (key != null) {                // If a key press has happened
                 input(key);
             }
 
@@ -93,9 +92,9 @@ public class Game {
             updateAliens();
 
 
-             //alien.shootLazer(projectiles);                VART OCH NÄR SKA DENNA AVFYRAS?
+            //alien.shootLazer(projectiles);                VART OCH NÄR SKA DENNA AVFYRAS?
 
-            if (player.isDead(asteroids, aliens, render)){ // Check if dead before updating projectiles and asteroids
+            if (player.isDead(asteroids, aliens, render)) { // Check if dead before updating projectiles and asteroids
                 break;
             }
 
@@ -110,15 +109,15 @@ public class Game {
 
             // Render objects
             render.drawPlayer(player);
-            for(AlienObject alien : aliens) {
+            for (AlienObject alien : aliens) {
                 render.drawAlien(alien);
             }
 
-            for(Projectile p: projectiles){
+            for (Projectile p : projectiles) {
                 render.drawProjectile(p); // Draw projectile
             }
 
-            for (Asteroid a:asteroids){
+            for (Asteroid a : asteroids) {
                 render.drawAsteroid(a);
             }
 
@@ -130,7 +129,38 @@ public class Game {
 
         System.out.println("Utanför loop!!");
         render.printGameOver(points);
+
+        while (key == null) {
+            // Read input
+
+            Key key2 = terminal.readInput();
+            // om key2 är null
+            if (key2 != null) {
+                switch (key2.getKind()) {
+                    case Enter:
+                        terminal.exitPrivateMode();
+                        return true;
+//                        break;
+                    case Escape:
+                        System.out.println("ESC??");
+                        terminal.exitPrivateMode();
+                        return false;
+//                        break;
+                }
+            }
+
+        }
+        return false;
     }
+
+
+
+
+
+
+
+
+
 
     private void updateAliens(){
         for(int i = aliens.size() - 1; i >= 0; i--) {
