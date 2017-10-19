@@ -3,7 +3,7 @@ package main;
 import java.util.List;
 
 
-public class PlayerObject extends MovingObject {
+public class Player extends MovingObject {
     // Declare variables
     private int lives;
 
@@ -13,7 +13,7 @@ public class PlayerObject extends MovingObject {
     //Höger: '\u25B6'
 
 
-    public PlayerObject(int xPos, int yPos) {
+    public Player(int xPos, int yPos) {
         // Initialize our variables
         this.xPos = xPos; // Set instance variable xPos to xPos from in parameter
         this.yPos = yPos; // Set instance variable yPos to yPos from in parameter
@@ -24,28 +24,52 @@ public class PlayerObject extends MovingObject {
         this.direction = 0;
         setSymbol(direction);
 
-        maxSpeed = 0.3;
-        minSpeed = -0.3;
+        maxSpeed = 0.2;
+        minSpeed = -0.2;
 
         this.lives = 1;
     }
 
-    public boolean isDead(List<Asteroid> asteroids, List<AlienObject> aliens,
+    public boolean isDead(List<Asteroid> asteroids, List<Alien> aliens,
                           Render render) throws InterruptedException {
 
         for(int i = asteroids.size() - 1; i >= 0; i--) { // If asteroid has hit player
             Asteroid asteroid = asteroids.get(i);
-            if(asteroid.getxPos() == this.xPos && asteroid.getyPos() == this.yPos ||
-               asteroid.getxPos() + 1 == this.xPos && asteroid.getyPos() == this.yPos) { // If same position
-                lives--;
-                render.drawAsteroidExplosion(asteroids.get(i));
-                asteroids.remove(i);
+
+            if(asteroid.size == Asteroid.small){
+                if(asteroid.getxPos() == this.xPos && asteroid.getyPos() == this.yPos ||
+                   asteroid.getxPos() + 1 == this.xPos && asteroid.getyPos() == this.yPos) {
+                    if (asteroid instanceof PowerUp){
+                        lives++;
+                        ((PowerUp) asteroid).setNumberOfPowerups(-1);
+                    }
+                    else{
+                        lives--;
+                    }
+                    render.drawAsteroidExplosion(asteroids.get(i));
+                    asteroids.remove(i);
+                }
+            }
+
+            if(asteroid.size == Asteroid.big){
+                if(asteroids.get(i).getxPos()     == this.getxPos() && asteroids.get(i).getyPos() == this.getyPos() ||
+                   asteroids.get(i).getxPos() + 1 == this.getxPos() && asteroids.get(i).getyPos() == this.getyPos() ||
+                   asteroids.get(i).getxPos() + 2 == this.getxPos() && asteroids.get(i).getyPos() == this.getyPos() ||
+                   asteroids.get(i).getxPos() + 3 == this.getxPos() && asteroids.get(i).getyPos() == this.getyPos() ||
+                   asteroids.get(i).getxPos()     == this.getxPos() && asteroids.get(i).getyPos() + 1 == this.getyPos() ||
+                   asteroids.get(i).getxPos() + 1 == this.getxPos() && asteroids.get(i).getyPos() + 1 == this.getyPos() ||
+                   asteroids.get(i).getxPos() + 2 == this.getxPos() && asteroids.get(i).getyPos() + 1 == this.getyPos() ||
+                   asteroids.get(i).getxPos() + 3 == this.getxPos() && asteroids.get(i).getyPos() + 1 == this.getyPos()) {
+                    lives--;
+                    render.drawAsteroidExplosion(asteroids.get(i));
+                    asteroids.remove(i);
+                }
             }
         }
 
         // OBS! FILOSOFISKT SETT BORDE INTE ALIEN TAS BORT HÄR UTAN I SIN EGEN KLASS
         for(int i = aliens.size() - 1; i >= 0; i--) {
-            AlienObject alien = aliens.get(i);
+            Alien alien = aliens.get(i);
             if(alien.getxPos() == this.xPos && alien.getyPos() == this.yPos){
                 lives--;
                 render.drawAlienExplosion(aliens.get(i));
@@ -61,13 +85,13 @@ public class PlayerObject extends MovingObject {
 
     public void moveForward() {
         if(direction == 0) {
-            setySpeed(-0.02);
+            setySpeed(-0.03);
         } else if(direction == 1) {
-            setxSpeed(0.02);
+            setxSpeed(0.1);
         } else if(direction == 2) {
-            setySpeed(0.02);
+            setySpeed(0.03);
         } else if(direction == 3) {
-            setxSpeed(-0.2);
+            setxSpeed(-0.1);
         }
     }
 

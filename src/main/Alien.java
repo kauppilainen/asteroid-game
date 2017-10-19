@@ -1,11 +1,10 @@
 package main;
 
 import java.util.List;
-import java.util.Random;
 
-public class AlienObject extends EnemyObject {
+public class Alien extends Enemy {
 
-    public AlienObject(int xPos, int yPos, PlayerObject player) {
+    public Alien(int xPos, int yPos, Player player) {
         // Take care of parent constructor
         super(player);
 

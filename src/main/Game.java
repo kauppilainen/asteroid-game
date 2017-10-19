@@ -14,8 +14,8 @@ public class Game {
 
     // Declare variables
     private Terminal terminal;
-    private PlayerObject player;
-    private List<AlienObject> aliens;
+    private Player player;
+    private List<Alien> aliens;
     private List<Projectile> projectiles;
     private List<Asteroid> asteroids;
     private Key key;
@@ -26,6 +26,7 @@ public class Game {
     private long loopCounter;
     private boolean coolDown; //stop player from firing to often
     private long coolDownCounter;
+
 
 
     public Game() { // Constructor
@@ -42,29 +43,46 @@ public class Game {
         rand = new Random();
         loopCounter = 0;
         coolDown = false;
+
     }
 
     public boolean run() throws InterruptedException {  // Method to run your game
         terminal.enterPrivateMode();        // Method to create window
         terminal.setCursorVisible(false);   // Makes cursor invisible
 
-        player = new PlayerObject(50, 15); // Create new player object
-        aliens.add(new AlienObject(10, 10, player));  // Create new alien object in alien array
+        player = new Player(50, 15); // Create new player object
+
+
+        //TODO REMOVE
+        aliens.add(new Alien(10, 10, player));  // Create new alien object in alien array
+        asteroids.add(new Asteroid(50, 5, 0, 0)); // TEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEST
 
         while (true) {
 
-            //add enemies
-            if (rand.nextInt(1000) < 12 + loopCounter / 1500) { // Create asteroid
+
+            //add asteroid
+            if(rand.nextInt(1000)<12+loopCounter/1500){ // Create asteroid
                 asteroids.add(addRandomAsteroid());
             }
-            //introduction of aliens delayed 1500 frames ~ 30s? enters randomly from right or left
-            if (loopCounter > 1500) {
-                if (rand.nextInt(1000) < 1) {
-                    aliens.add(new AlienObject(0, rand.nextInt(30), player));
-                } else if (rand.nextInt(1000) < 2) {
-                    aliens.add(new AlienObject(100, rand.nextInt(30), player));
+
+            // introduction of aliens delayed 1500 frames ~ 30s? enters randomly from right or left
+            if(loopCounter > 1500){
+                if(rand.nextInt(1000)<1){
+                    aliens.add(new Alien(0,rand.nextInt(30),player));
+                }
+                else if(rand.nextInt(1000)<2){
+                    aliens.add(new Alien(100,rand.nextInt(30),player));
                 }
             }
+            //add Powerups
+            if(player.getLives()+ PowerUp.getNumberOfPowerups() < 3){
+                if(rand.nextInt(1000) < 2 && PowerUp.getNumberOfPowerups() < 3){
+                    asteroids.add(new PowerUp(rand.nextInt(100),0,0,0.1));
+                    PowerUp.setNumberOfPowerups(1);
+
+                }
+            }
+            System.out.println(PowerUp.getNumberOfPowerups());
 
             //cooldown for player gun
             if (coolDown) {
@@ -72,44 +90,36 @@ public class Game {
                 if (coolDownCounter > 8) {
                     coolDown = false;
                     coolDownCounter = 0;
-//                    System.out.println(coolDownCounter);
-//                    System.out.println(coolDown);
                 }
             }
 
 
+
             key = terminal.readInput();     // Get key input
             if (key != null) {                // If a key press has happened
+
                 input(key);
             }
 
             // Update object positions
             player.updatePosition();
 
-//            for(int i = 0; i < aliens.size(); i++) {
-//                aliens.get(i).updatePosition();
-//            }
             updateAliens();
 
 
-            //alien.shootLazer(projectiles);                VART OCH NÄR SKA DENNA AVFYRAS?
+            if (player.isDead(asteroids, aliens, render)){ // Check if dead before updating projectiles and asteroids
 
-            if (player.isDead(asteroids, aliens, render)) { // Check if dead before updating projectiles and asteroids
                 break;
             }
-
-//            for(int i = aliens.size(); i >= 0; i--) {
-//                if(aliens.get(i).isDead(projectiles, render)){
-//                    points++;
-//                }
-//            }
 
             updateProjectiles();
             updateAsteriods();
 
             // Render objects
             render.drawPlayer(player);
-            for (AlienObject alien : aliens) {
+
+            for(Alien alien : aliens) {
+
                 render.drawAlien(alien);
             }
 
@@ -178,6 +188,9 @@ public class Game {
             asteroids.get(i).updatePosition();
             if(asteroids.get(i).hitByProjectile(projectiles)){
                 render.drawAsteroidExplosion(asteroids.get(i));
+                if(asteroids.get(i) instanceof PowerUp){
+                    PowerUp.setNumberOfPowerups(-1);
+                }
                 asteroids.remove(i);
                 points++;
             }
@@ -218,7 +231,6 @@ public class Game {
                 if (!coolDown){
                     projectiles.add(new Projectile(player)); // Create and add projectile to projectile list
                     coolDown = true;
-                    System.out.println(coolDown);
                 }
             break;
         }
@@ -241,14 +253,15 @@ public class Game {
         xSpeed += rand.nextInt(5)/10.0;
         ySpeed += rand.nextInt(5)/10.0;
 
-        //Here you can adjust start speed of atroids by changing one variable
+        //Here you can adjust start speed of atsteroids by changing one variable
         double adjustSpeed = 0.8;
         xSpeed *= adjustSpeed;
         ySpeed *= adjustSpeed;
 
-
         return new Asteroid(x,y,xSpeed,ySpeed);
-
     }
+
+
+
 
 }
