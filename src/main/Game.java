@@ -74,7 +74,6 @@ public class Game {
                 if(rand.nextInt(1000) < 800 && PowerUpp.getNumberOfPowerups() < 3){
                     asteroids.add(new PowerUpp(rand.nextInt(100),0,0,0.2));
                     PowerUpp.setNumberOfPowerups(1);
-
                 }
             }
             System.out.println(PowerUpp.getNumberOfPowerups());
