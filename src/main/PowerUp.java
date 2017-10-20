@@ -22,4 +22,8 @@ public class PowerUp extends Asteroid {
     public static void setNumberOfPowerups(int change) {
         numberOfPowerups += change;
     }
+
+    public static void resetNumberOfPowerups(){
+        numberOfPowerups = 0;
+    }
 }

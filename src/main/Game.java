@@ -42,6 +42,7 @@ public class Game {
         rand = new Random();
         loopCounter = 0;
         coolDown = false;
+        PowerUp.resetNumberOfPowerups();
 
     }
 
