@@ -134,13 +134,11 @@ public class Game {
 
         } // end of main loop
 
-        Thread.sleep(300);
-        key = null;
-
 
         render.printGameOver(points);
 
-        while (key == null) {
+        boolean keyInput = false;
+        while (!keyInput) {
             // Read input
 
             Key key2 = terminal.readInput();
@@ -150,26 +148,16 @@ public class Game {
                     case Enter:
                         terminal.exitPrivateMode();
                         return true;
-//                        break;
+
                     case Escape:
                         System.out.println("ESC??");
                         terminal.exitPrivateMode();
                         return false;
-//                        break;
                 }
             }
-
         }
         return false;
     }
-
-
-
-
-
-
-
-
 
 
     private void updateAliens(){
