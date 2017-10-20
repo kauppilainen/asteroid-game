@@ -134,7 +134,10 @@ public class Game {
 
         } // end of main loop
 
-        System.out.println("Utanför loop!!");
+        Thread.sleep(300);
+        key = null;
+
+
         render.printGameOver(points);
 
         while (key == null) {
