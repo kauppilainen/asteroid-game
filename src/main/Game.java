@@ -221,7 +221,9 @@ public class Game {
                     projectiles.add(new Projectile(player)); // Create and add projectile to projectile list
                     coolDown = true;
                 }
-            break;
+                break;
+            case Escape:
+                System.exit(1338);
         }
     }
 
